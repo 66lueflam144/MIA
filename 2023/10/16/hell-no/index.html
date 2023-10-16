@@ -161,10 +161,37 @@
         </span>
         
         
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/MIA/tags/LEARN/" style="color: #00bcd4">LEARN</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/MIA/tags/TOOLs/" style="color: #ff7d73">TOOLs</a>
+            </span>
+            
+        </span>
+        
     </div>
     
     <div class="content" v-pre>
-        <p>heel</p>
+        <h1 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h1><h2 id="下载Module"><a href="#下载Module" class="headerlink" title="下载Module"></a>下载Module</h2><p>有时候使用py的时候会报错说xx module没有，上网随便找一个下载命令发现好不靠谱，所以仔细找了一下实用的。</p>
+<h3 id="PIP安装"><a href="#PIP安装" class="headerlink" title="PIP安装"></a>PIP安装</h3><ul>
+<li>1.先检测pip module是否存在<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip list</span><br></pre></td></tr></table></figure>
+如果输出数据就表示存在该模块，否则就通过<code>python -m ensurepip</code>安装，之后<code>pip install --upgrade pip</code>更新一下（不搞也行，只是以防万一）</li>
+<li>2.<code>pip install xxx</code>即可下载。如果报错，大概是没有把pip路径添加到环境变量里面，所以更换<code>python -m pip install xx</code>。</li>
+<li>3.卸载就是<code>pip uninstall xx</code></li>
+<li>4.timeout问题：增加参数由官网下载变为国内镜像下载：<code>pip install xx -i URL --trusted-host xxx.com</code>（xxx.com就是URL里面的网址）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">清华：https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line">阿里：http://mirrors.aliyun.com/pypi/simple/</span><br><span class="line">豆瓣：http://pypi.douban.com/simple/</span><br><span class="line">华中理工大学：http://pypi.hustunique.com/</span><br><span class="line">山东理工大学：http://pypi.sdutlinux.org/</span><br><span class="line">中国科学技术大学：http://pypi.mirrors.ustc.edu.cn/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>上面说的是在线下载，还有一个离线下载，感觉不实用就略过。</p>
 
     </div>
     
