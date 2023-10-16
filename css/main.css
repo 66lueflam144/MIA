@@ -339,7 +339,7 @@
     position: fixed;
     top: 0;
     width: 100vw;
-    word-break: keep-all;
+    
     z-index: 2147483647;
 }
 #loading h2,
