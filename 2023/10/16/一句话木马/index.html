@@ -169,12 +169,12 @@
             
             <span class="tag">
                 
-                <a href="/MIA/tags/LEARN/" style="color: #00bcd4">LEARN</a>
+                <a href="/MIA/tags/LEARN/" style="color: #00a596">LEARN</a>
             </span>
             
             <span class="tag">
                 
-                <a href="/MIA/tags/TOOLs/" style="color: #00a596">TOOLs</a>
+                <a href="/MIA/tags/TOOLs/" style="color: #03a9f4">TOOLs</a>
             </span>
             
         </span>
@@ -187,9 +187,11 @@
 <ul>
 <li><code>@</code>不进行报错</li>
 <li>php中有几个超全局变量，<code>$_POST</code>是其中一个。<br><code>$_POST[&#39;shell&#39;]</code>意为用POST的方法接收shell变量。</li>
-<li><code>eval()</code>函数将字符串作为PHP代码执行<br>
-连起来，就是，用POST的方法接收shell变量，然后用eval()函数将变量shell作为php代码执行，并且该过程中即使出现执行错误也不报错。shell作为一个变量，可以`shell=xxx`，当我们上传该木马成功后，我们再通过POST上传对变量shell的更改，比如`shell=system("uname -a)`，会得到该命令执行后的响应。</li>
+<li><code>eval()</code>函数将字符串作为PHP代码执行<br></li>
 </ul>
+<span id="more"></span>
+
+<p>连起来，就是，用POST的方法接收shell变量，然后用eval()函数将变量shell作为php代码执行，并且该过程中即使出现执行错误也不报错。shell作为一个变量，可以<code>shell=xxx</code>，当我们上传该木马成功后，我们再通过POST上传对变量shell的更改，比如<code>shell=system(&quot;uname -a)</code>，会得到该命令执行后的响应。</p>
 <h2 id="蚁剑等工具连接原理（一句话密码的真相）"><a href="#蚁剑等工具连接原理（一句话密码的真相）" class="headerlink" title="蚁剑等工具连接原理（一句话密码的真相）"></a>蚁剑等工具连接原理（一句话密码的真相）</h2><p>在蚁剑之类的工具进行连接的时候，我们只是输入shell当作密码，实则是蚁剑自动对shell变量进行了木马代码赋值并执行，让我们连接上了服务器。（具体实践可用burpsuite对蚁剑进行抓包）</p>
 <p><font size=1>终于知道为什么了好感人。。。其实写这个的原因也是这个</font></p>
 
