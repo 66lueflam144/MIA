@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>little things tbc | LUEFLAM</title>
-    <meta name="author" content="66+144" />
+    <title>little things tbc | 66+144</title>
+    <meta name="author" content="LUEFLAM" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
@@ -57,7 +57,7 @@
         <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
     <nav id="desktop-menu">
         <a class="title" href="/MIA/">
-            <span>LUEFLAM</span>
+            <span>66+144</span>
         </a>
         
         <a href="/MIA/">
@@ -89,7 +89,7 @@
     <nav id="mobile-menu">
         <div class="title" @click="showMenuItems = !showMenuItems">
             <i class="fa-solid fa-bars fa-fw"></i>
-            <span>&emsp;LUEFLAM</span>
+            <span>&emsp;66+144</span>
         </div>
         <transition name="slide">
             <div class="items" v-show="showMenuItems">
@@ -169,12 +169,12 @@
             
             <span class="tag">
                 
-                <a href="/MIA/tags/LEARN/" style="color: #ffa2c4">LEARN</a>
+                <a href="/MIA/tags/LEARN/" style="color: #00a596">LEARN</a>
             </span>
             
             <span class="tag">
                 
-                <a href="/MIA/tags/TOOLs/" style="color: #00bcd4">TOOLs</a>
+                <a href="/MIA/tags/TOOLs/" style="color: #ffa2c4">TOOLs</a>
             </span>
             
         </span>
@@ -186,8 +186,12 @@
 <span id="more"></span>
 
 <h3 id="PIP安装"><a href="#PIP安装" class="headerlink" title="PIP安装"></a>PIP安装</h3><ul>
-<li>1.先检测pip module是否存在<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip list</span><br></pre></td></tr></table></figure>
-如果输出数据就表示存在该模块，否则就通过<code>python -m ensurepip</code>安装，之后<code>pip install --upgrade pip</code>更新一下（不搞也行，只是以防万一）</li>
+<li>1.先检测pip module是否存在</li>
+</ul>
+<pre><code class="cmd">pip list
+</code></pre>
+<p>如果输出数据就表示存在该模块，否则就通过<code>python -m ensurepip</code>安装，之后<code>pip install --upgrade pip</code>更新一下（不搞也行，只是以防万一）</p>
+<ul>
 <li>2.<code>pip install xxx</code>即可下载。如果报错，大概是没有把pip路径添加到环境变量里面，所以更换<code>python -m pip install xx</code>。</li>
 <li>3.卸载就是<code>pip uninstall xx</code></li>
 <li>4.timeout问题：增加参数由官网下载变为国内镜像下载：<code>pip install xx -i URL --trusted-host xxx.com</code>（xxx.com就是URL里面的网址）</li>
@@ -209,11 +213,11 @@
     <div id="footer-wrap">
         <div>
             &copy;
-            2022 - 2023 LUEFLAM
+            2022 - 2023 66+144
             <span id="footer-icon">
                 <i class="fa-solid fa-font-awesome fa-fw"></i>
             </span>
-            &commat;66+144
+            &commat;LUEFLAM
         </div>
         <div>
             Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
