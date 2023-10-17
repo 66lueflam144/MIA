@@ -252,7 +252,30 @@
 <td></td>
 </tr>
 </tbody></table>
-<h3 id="伪协议"><a href="#伪协议" class="headerlink" title="伪协议"></a>伪协议</h3>
+<h3 id="伪协议"><a href="#伪协议" class="headerlink" title="伪协议"></a>伪协议</h3><blockquote>
+<p>file:&#x2F;&#x2F;</p>
+</blockquote>
+<h4 id="条件："><a href="#条件：" class="headerlink" title="条件："></a>条件：</h4><ul>
+<li><code>allow_url_fopen</code>:off&#x2F;on</li>
+<li><code>allow_url_include</code>:off&#x2F;on</li>
+</ul>
+<h4 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h4><p>用于访问本地文件系统。include()&#x2F;require()&#x2F;include_once()&#x2F;require_once()参数可控的情况下，如导入为非.php文件，则仍按照php语法进行解析，这是include()函数所决定的。</p>
+<h4 id="usage"><a href="#usage" class="headerlink" title="usage"></a>usage</h4><ul>
+<li><p>绝对路径<br><code>http://xxx/include.php?file=file://C:\WWW\test\1.txt</code> </p>
+</li>
+<li><p>相对路径<br><code>http://xxx/include.php?file=./2.txt</code></p>
+</li>
+<li><p>网络路径<br><code>http://xxx/include.php?file=http://yyy/3.txt</code></p>
+</li>
+</ul>
+<blockquote>
+<p>php:&#x2F;&#x2F;</p>
+</blockquote>
+<h4 id="条件：-1"><a href="#条件：-1" class="headerlink" title="条件："></a>条件：</h4><ul>
+<li><code>allow_url_fopen</code>:off&#x2F;on</li>
+<li><code>allow_url_include</code>:仅php:&#x2F;&#x2F;input, php:&#x2F;&#x2F;stdin, php:&#x2F;&#x2F;memory, php:&#x2F;&#x2F;temp需要on</li>
+</ul>
+<h4 id="作用-1"><a href="#作用-1" class="headerlink" title="作用"></a>作用</h4>
     </div>
     
     
