@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Tags: LEARN | 66+144</title>
+    <title>file inclusion | 66+144</title>
     <meta name="author" content="LUEFLAM" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -31,6 +31,10 @@
 
 
 <script src="/MIA/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -144,209 +148,118 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/MIA/tags/CTF/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                CTF
-            </a>
+            <div class="article">
+    <div>
+        <h1>file inclusion</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/10/17
         </span>
         
         
-        
-        <span>
-            <a href="/MIA/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                代码审计
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/MIA/tags/LEARN/" style="color: #00a596">LEARN</a>
+            </span>
+            
         </span>
-        
-        
-        
-        <span>
-            <a href="/MIA/tags/File-Upload/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                File Upload
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/MIA/tags/HEXO/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                HEXO
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/MIA/tags/LEARN/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                LEARN
-            </a>
-        </span>
-        
-        
-        
-        
-        
-        <span>
-            <a href="/MIA/tags/TOOLs/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                TOOLs
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/MIA/tags/HTTP/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                HTTP
-            </a>
-        </span>
-        
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/10/17</div>
-            <a href="/MIA/2023/10/17/file-inclusion/">
-                <h3>file inclusion</h3>
-            </a>
-            <div class="info">
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/MIA/tags/LEARN/" style="color: #ffa2c4">LEARN</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <h1 id="文件包含漏洞"><a href="#文件包含漏洞" class="headerlink" title="文件包含漏洞"></a>文件包含漏洞</h1><p>PHP version</p>
+<h2 id="包含函数"><a href="#包含函数" class="headerlink" title="包含函数"></a>包含函数</h2><ul>
+<li>include</li>
+<li>require</li>
+<li>include_once</li>
+<li>require_once</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="include"><a href="#include" class="headerlink" title="include"></a>include</h3><blockquote>
+<p>将指定的文件载入并执行里面的程序。重复引用的情况下加载多次。</p>
+</blockquote>
+<pre><code class="php">&lt;?php
+    include &quot;test.php&quot;;
+    include &quot;test.php&quot;;
+?&gt;
+</code></pre>
+<p>包含两次test.php。</p>
+<h3 id="include-once"><a href="#include-once" class="headerlink" title="include_once"></a>include_once</h3><blockquote>
+<p>将指定文件载入并执行内含程序。不会重复包含。</p>
+</blockquote>
+<pre><code class="php">&lt;?php
+    include &quot;test.php&quot;;
+    include &quot;test.php&quot;;
+?&gt;
+</code></pre>
+<p>包含一次test.php。</p>
+<h3 id="require"><a href="#require" class="headerlink" title="require"></a>require</h3><blockquote>
+<p>除了处理错误的方式不同外，其他方面相同。同时require()一般放在 PHP 文件的最前面，程序在执行前就会先导入要引用的文件；include()一般放在程序的流程控制中，当程序执行时碰到才会引用，简化程序的执行流程</p>
+</blockquote>
+<ul>
+<li>require生成致命错误(E_COMPILE_ERROE)，脚本停止。</li>
+<li>include生成警告(E_WARNING)，脚本继续。</li>
+</ul>
+<p>require_once()也类似。</p>
+<h2 id="封装协议"><a href="#封装协议" class="headerlink" title="封装协议"></a>封装协议</h2><table>
+<thead>
+<tr>
+<th>协议</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>file:&#x2F;&#x2F;</td>
+<td>访问本地文件系统</td>
+</tr>
+<tr>
+<td>http(s)</td>
+<td></td>
+</tr>
+<tr>
+<td>ftp:&#x2F;&#x2F;</td>
+<td>访问FTP(s) URL</td>
+</tr>
+<tr>
+<td>php:&#x2F;&#x2F;</td>
+<td>访问各个输入&#x2F;出流</td>
+</tr>
+<tr>
+<td>zlib:&#x2F;&#x2F;</td>
+<td>压缩流</td>
+</tr>
+<tr>
+<td>data:&#x2F;&#x2F;</td>
+<td>数据</td>
+</tr>
+<tr>
+<td>phar:&#x2F;&#x2F;</td>
+<td>PHP归档</td>
+</tr>
+<tr>
+<td>…</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="伪协议"><a href="#伪协议" class="headerlink" title="伪协议"></a>伪协议</h3>
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/10/17</div>
-            <a href="/MIA/2023/10/17/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0GET/">
-                <h3>文件上传GET</h3>
-            </a>
-            <div class="info">
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/MIA/tags/LEARN/" style="color: #03a9f4">LEARN</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
-    </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/10/17</div>
-            <a href="/MIA/2023/10/17/HEXO-Github-Pages/">
-                <h3>HEXO+Github Pages</h3>
-            </a>
-            <div class="info">
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/MIA/tags/HEXO/" style="color: #00a596">HEXO</a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/MIA/tags/LEARN/" style="color: #ffa2c4">LEARN</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
-    </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/10/16</div>
-            <a href="/MIA/2023/10/16/hell-no/">
-                <h3>little things tbc</h3>
-            </a>
-            <div class="info">
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/MIA/tags/LEARN/" style="color: #03a9f4">LEARN</a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/MIA/tags/TOOLs/" style="color: #ffa2c4">TOOLs</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
-    </div>
+    
+    
+    
     
 </div>
 
@@ -378,6 +291,12 @@
         
     </div>
     <script src="/MIA/js/main.js"></script>
+    
+    
+
+
+
+
     
 </body>
 </html>
