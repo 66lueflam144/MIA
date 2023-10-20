@@ -178,12 +178,12 @@
             
             <span class="tag">
                 
-                <a href="/MIA/tags/LEARN/" style="color: #03a9f4">LEARN</a>
+                <a href="/MIA/tags/LEARN/" style="color: #ffa2c4">LEARN</a>
             </span>
             
             <span class="tag">
                 
-                <a href="/MIA/tags/TOOLs/" style="color: #ffa2c4">TOOLs</a>
+                <a href="/MIA/tags/TOOLs/" style="color: #00a596">TOOLs</a>
             </span>
             
         </span>
@@ -205,8 +205,40 @@
 <li>3.卸载就是<code>pip uninstall xx</code></li>
 <li>4.timeout问题：增加参数由官网下载变为国内镜像下载：<code>pip install xx -i URL --trusted-host xxx.com</code>（xxx.com就是URL里面的网址）</li>
 </ul>
-<p>清华：<a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a><br><br>阿里：<a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/pypi/simple/">http://mirrors.aliyun.com/pypi/simple/</a><br><br>豆瓣：<a target="_blank" rel="noopener" href="http://pypi.douban.com/simple/">http://pypi.douban.com/simple/</a><br>华中理工大学：<a target="_blank" rel="noopener" href="http://pypi.hustunique.com/">http://pypi.hustunique.com/</a><br><br>山东理工大学：<a target="_blank" rel="noopener" href="http://pypi.sdutlinux.org/">http://pypi.sdutlinux.org/</a><br><br>中国科学技术大学：<a target="_blank" rel="noopener" href="http://pypi.mirrors.ustc.edu.cn/">http://pypi.mirrors.ustc.edu.cn/</a><br></p>
+<p>镜像：<br><br>清华：<a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a><br><br>阿里：<a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/pypi/simple/">http://mirrors.aliyun.com/pypi/simple/</a><br><br>豆瓣：<a target="_blank" rel="noopener" href="http://pypi.douban.com/simple/">http://pypi.douban.com/simple/</a><br>华中理工大学：<a target="_blank" rel="noopener" href="http://pypi.hustunique.com/">http://pypi.hustunique.com/</a><br><br>山东理工大学：<a target="_blank" rel="noopener" href="http://pypi.sdutlinux.org/">http://pypi.sdutlinux.org/</a><br><br>中国科学技术大学：<a target="_blank" rel="noopener" href="http://pypi.mirrors.ustc.edu.cn/">http://pypi.mirrors.ustc.edu.cn/</a><br></p>
+<blockquote>
 <p>上面说的是在线下载，还有一个离线下载，感觉不实用就略过。</p>
+</blockquote>
+<h2 id="多版本管理"><a href="#多版本管理" class="headerlink" title="多版本管理"></a>多版本管理</h2><p>起源是因为受不了没有cover的日子于是打算自己搞一个AI voice之类的东西，然后上GitHub找，然后在配置的过程中遇到python版本不对的情况，不想特复杂的设置，所以找到了<code>pyenv</code>这个工具。</p>
+<h3 id="install"><a href="#install" class="headerlink" title="install"></a>install</h3><p><a href=https://github.com/pyenv-win/pyenv-win/blob/master/docs/installation.md#powershell>官方Installation文档</a><br></p>
+<ul>
+<li>使用zip的进行下载（问就是其他的没这个省事，都不用修改outfile）</li>
+<li>解压到<code>.pyenv</code>这个名称的文件夹之下（自建的）</li>
+<li>进行环境变量修改（系统变量）：<ul>
+<li>系统变量增加<code>PYENV</code>变量，value设置为<code>xx\xx\pyenv-win</code></li>
+<li>path分别增加<code>%PYENV%\bin</code>和<code>%PYENV%\shims</code></li>
+</ul>
+</li>
+<li>在cmd界面输入<code>pyenv</code>显示版本信息就安装成功了，</li>
+</ul>
+<p>在第一次启用的时候好像（？）会报错：</p>
+<blockquote>
+<p>请只运行你信任的脚本。虽然来自 Internet 的脚本会有一定的用处，但此脚本可能会损坏你的计算机。如果你信任此脚本，请使用 Unblock-File cmdlet 允许运行该脚本，而不显示此警告消息。是否要运行</p>
+</blockquote>
+<p>根据<a href=https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.utility/unblock-file>Unblock-File</a>进行修改就行了。<br><br>一个例子：</p>
+<pre><code class="powershell">Unblock-File -Path C:\Users\User01\Documents\Downloads\PowerShellTips.chm
+</code></pre>
+<h3 id="usage"><a href="#usage" class="headerlink" title="usage"></a>usage</h3><p>常用：</p>
+<pre><code class="bash">pyenv installl --list #展示可安装python版本列表
+pyenv install xxx #安装指定版本python
+pyenv version #显示当前python版本
+pyenv versions #显示已安装的python版本
+pyenv global xxx #全局使用xxx版本python
+pyenv shell xxx #为当前会话设置版本xxx，关闭就失效
+pyenv local xxx #为当前目录设置版本xxx
+</code></pre>
+<p>不过一般不会用到后两个。</p>
+<hr>
 <h1 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h1><h2 id="Token"><a href="#Token" class="headerlink" title="Token"></a>Token</h2><p>获取token：</p>
 <ul>
 <li>ssettings</li>
