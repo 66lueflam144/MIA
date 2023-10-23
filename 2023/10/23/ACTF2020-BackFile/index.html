@@ -169,7 +169,7 @@
             
             <span class="tag">
                 
-                <a href="/MIA/tags/CTF/" style="color: #00bcd4">CTF</a>
+                <a href="/MIA/tags/CTF/" style="color: #00a596">CTF</a>
             </span>
             
         </span>
@@ -243,8 +243,11 @@ else &#123;
 </li>
 </ul>
 <hr>
+<hr>
 <h2 id="translate"><a href="#translate" class="headerlink" title="translate"></a>translate</h2><h3 id="key"><a href="#key" class="headerlink" title="?key&#x3D;"></a>?key&#x3D;</h3><p>所以去看看<code>flag.php</code>有什么，但是打开是一片空白。<br>（在这里犯了一个错误，就是认为<code>key</code>这个请求参数是在<code>flag.php</code>下生效。然后搞半天没有任何东西。）<br>其实从<code>index.php.bak</code>这个名字就可以知道是和<code>index.php</code>有关。不过网站的默认首页就是它，所以不用写<code>http://xx/index.php?key=</code>，直接写<code>http://xx/?key=</code>就行。</p>
+<hr>
 <h3 id="Just-Num"><a href="#Just-Num" class="headerlink" title="Just Num"></a>Just Num</h3><p>前面提到一个<code>is_numeric()</code>函数判断是否是数字，所以<code>$key=$str</code>的值其实只是<code>123</code>.<br>(把<code>$str</code>的值ctrl+c上去，得到一个<code>just num</code>，嗯，想起来高中时候的一些题目。)</p>
+<hr>
 <h2 id="ファンワイ"><a href="#ファンワイ" class="headerlink" title="ファンワイ"></a>ファンワイ</h2><p>因为嫌弃dirsearch太慢所以去找了个新的<code>dirmap</code>，但是没有任何out file生成……可能还需要调一下配置。</p>
 
     </div>
