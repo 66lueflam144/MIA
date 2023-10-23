@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>HEXO+Github Pages | 66+144</title>
+    <title>NewStarCTF2023 听说你是个游戏高手 | 66+144</title>
     <meta name="author" content="LUEFLAM" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -150,14 +150,14 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>HEXO+Github Pages</h1>
+        <h1>NewStarCTF2023 听说你是个游戏高手</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2023/10/17
+            2023/10/23
         </span>
         
         
@@ -169,12 +169,7 @@
             
             <span class="tag">
                 
-                <a href="/MIA/tags/HEXO/" style="color: #ffa2c4">HEXO</a>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/MIA/tags/LEARN/" style="color: #00a596">LEARN</a>
+                <a href="/MIA/tags/ctf/" style="color: #00bcd4">ctf</a>
             </span>
             
         </span>
@@ -182,52 +177,90 @@
     </div>
     
     <div class="content" v-pre>
-        <h1 id="HEXO"><a href="#HEXO" class="headerlink" title="HEXO"></a>HEXO</h1><h2 id="HEXO-GITHUB-PAGES"><a href="#HEXO-GITHUB-PAGES" class="headerlink" title="HEXO+GITHUB PAGES"></a>HEXO+GITHUB PAGES</h2><p>因为之前做的那个博客上传出现了问题，所以又搭建一个，其实也可以用docsify的，就是好像css渲染出现问题来着就放弃了。<br></p>
+        <blockquote>
+<p>知道查看js文件，知道可以修改值但是修改错方向导致痛失……</p>
+</blockquote>
 <span id="more"></span>
+<p>官方给的有两种方法</p>
+<ul>
+<li>1.burp suite change the request method</li>
+<li>2.修改gameScore值</li>
+</ul>
+<h2 id="研究页面"><a href="#研究页面" class="headerlink" title="研究页面"></a>研究页面</h2><p>只截取了最重要的地方：</p>
+<pre><code class="js">...
+/**********游戏当前状态************/
+var curPhase = PHASE_DOWNLOAD;
+var gameScore = 0;
+...
 
-<ul>
-<li>前提是Node.js你配置好了。</li>
-<li>接着就是安装hexo框架，我们通过cnpm（npm国内镜像慢到你绝望甚至连接不上），所以先安装cnpm</li>
-</ul>
-<pre><code class="js">npm install -g cnpm --registry=https://registry.npm.taobao.org
+//游戏结束
+function gameover()&#123;
+    if(gameScore &gt; 100000)&#123;
+        var xhr = new XMLHttpRequest();
+        xhr.open(&quot;POST&quot;, &quot;/api.php&quot;, true);
+        xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+        xhr.onreadystatechange = function() &#123;
+        if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) &#123;
+            var response = JSON.parse(xhr.responseText);
+            alert(response.message);
+        &#125;
+        &#125;;
+        var data = &#123;
+            score: gameScore,
+        &#125;;
+        xhr.send(JSON.stringify(data));
+    &#125;
+    alert(&quot;成绩：&quot;+gameScore);
+    gameScore=0;  
+    curPhase =PHASE_READY;  
+    ...	    
+&#125;
 </code></pre>
 <ul>
-<li>安装hexo框架</li>
+<li><code>xhr</code>调用<code>XMLHttpRequest()</code>来构造请求——<code>xh.open()</code>中又可以看到是以<code>POST</code>的方式，对<code>api.php</code>进行请求。</li>
+<li>请求过程中会发送一个JSON文件，发送的<code>data</code>内容是<code>score:gameScore</code>。</li>
+<li>而成绩是<code>gameScore</code>的值。</li>
 </ul>
-<pre><code class="js">cnpm install -g hexo-cli
+<hr>
+<h2 id="burp"><a href="#burp" class="headerlink" title="burp"></a>burp</h2><p>这个比较新（for me），刷新网站抓包得到<code>GET</code>请求头</p>
+<pre><code class="http">GET / HTTP/1.1
+Host: 9ab09171-214d-4d99-aad4-4f4057a063da.node4.buuoj.cn:81
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/118.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: zh,zh-TW;q=0.8,zh-HK;q=0.6,en-US;q=0.4,en;q=0.2
+Accept-Encoding: gzip, deflate
+Connection: close
+Upgrade-Insecure-Requests: 1
+If-Modified-Since: Sun, 26 Mar 2023 07:18:44 GMT
+If-None-Match: &quot;2cb-5f7c86fc11d00-gzip&quot;
 </code></pre>
-<ul>
-<li>接着建一个仓库，不一定要求是<code>xxx.github.io</code>这种名字</li>
-<li>clone至本地</li>
-<li>hexo初始化</li>
-</ul>
-<pre><code class="js">hexo init xxx
+<p>然后就用burp的改变请求方式把它变成<code>POST</code>：</p>
+<pre><code class="http">POST /api.php HTTP/1.1
+Host: 0d390052-3ebd-49f4-a519-064f1abd00bb.node4.buuoj.cn:81
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/118.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: zh,zh-TW;q=0.8,zh-HK;q=0.6,en-US;q=0.4,en;q=0.2
+Accept-Encoding: gzip, deflate
+Connection: close
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 17
+
+&#123;&quot;score&quot;:1000000&#125;
 </code></pre>
-<p>需要注意的是，xxx是指你在你clone的仓库文件里新的文件夹（不需要你自建因为这个命令就是创建且初始化但是建了也没关系），不是指你仓库名（因为hexo拒绝非空文件夹的初始化）</p>
+<p>发送之后就会得到flag。</p>
+<hr>
+<h2 id="修改页面代码"><a href="#修改页面代码" class="headerlink" title="修改页面代码"></a>修改页面代码</h2><blockquote>
+<p>控制台上执行代码，可以修改掉某个变量或者某个函数达到目）</p>
+</blockquote>
 <ul>
-<li>初始化后<code>hexo s</code>就可以启动本地查看。（可看可不看，这不是重点，一般用于预览）</li>
-<li>部署到github：<ul>
-<li>在初始化过的文件夹里<code>cnpm install --save hexo-deployer-git</code>安装必要的插件</li>
-<li>初始化后的文件夹里有一个<code>_config.yml</code>文件，进入对一些数据进行修改（记得里面的都需要在<code>:</code>后空格才能生效）：<ul>
-<li><code># Site</code>部分就是修改自己博客的title、博客主人名之类</li>
-<li><code># URL</code>部分下的<code>url</code>修改为你那个仓库的URL，是带<code>.git</code>结尾的</li>
-<li>还要添加一个<code>root</code>，填写仓库名，比如<code>/yourname.github.io/</code>。root有无对<code>io</code>仓库可能没什么影响但对非<code>io</code>仓库影响很大——可能css，js的渲染加载不出来。</li>
-<li><code>theme</code>部分是在你使用了其他theme后修改，后面可以具体说。</li>
-<li><code># Deployment</code>部分，<code>type: git</code>,<code>repo: https://xxx/xxx.git</code>,<code>branch: gh-pages</code></li>
+<li>在控制台输入<code>gameScore=100000</code>然后想办法让飞机最快速度坠毁就可以最快速度得到flag。<br>尝试直接修改js代码最开始的gameScore&#x3D;100000但是没有效果。<ul>
+<li>具体可以体现为，第一种后可以看到游戏界面的Score变成了100000，而第二种依旧是0；</li>
+<li>至于为什么无效，理解为js缓存的问题——游戏使用的仍然是之前的js缓存，如果刷新，得到的是从服务器发来的js缓存，人为修改的js没有上场机会。</li>
 </ul>
 </li>
+<li>参考：<br><a href=https://learn.microsoft.com/zh-cn/microsoft-edge/devtools-guide-chromium/console/console-javascript>控制台运行JavaScript</a><br><a href=https://www.zhihu.com/question/30701118#>虽然是讨论chrome浏览器但完全可以套用在every</a></li>
 </ul>
-</li>
-<li>搞完上述的配置之后，命令行输入每次更新必输入的三句命令：<ul>
-<li><code>hexo clean</code></li>
-<li><code>hexo g</code></li>
-<li><code>hexo d</code>（第2和第3可以合并为<code>hexo g -d</code>）</li>
-</ul>
-</li>
-<li>hexo连接是一个谜，所以有时候会报错，失败了也不用着急，全随缘，没准什么时候就d成功了。 </li>
-<li>一些其他命令<code>hexo new post xxx</code>，就会自动创建新文件，目录它会自动告诉你。</li>
-</ul>
-<h3 id="PLUS-theme"><a href="#PLUS-theme" class="headerlink" title="PLUS theme"></a>PLUS theme</h3><p>找到一个喜欢的主题xxx，下载解压到博客文件夹的<code>theme</code>文件夹里面，一般theme都会有使用手册，按照里面的要求进行修改就行。<br>然后再回到根目录下的<code>_config.yml</code>文件里修改<code>theme: xxx</code>。最后三句命令进行更新推送，等待page build好就可以看到了。<br><br><a href=https://hexo.io/themes/>Hexo theme</a><br><a href=https://hexo.fluid-dev.com/archives/>fluid theme</a></p>
 
     </div>
     
