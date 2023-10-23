@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Categories: Tool | 66+144</title>
+    <title>绝对路径&amp;相对路径 | 66+144</title>
     <meta name="author" content="LUEFLAM" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -31,6 +31,10 @@
 
 
 <script src="/MIA/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -144,77 +148,60 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/MIA/categories/for-fun/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                for_fun
-            </a>
+            <div class="article">
+    <div>
+        <h1>绝对路径&amp;相对路径</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/10/20
         </span>
         
         
-        
-        <span>
-            <a href="/MIA/categories/Tool/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                Tool
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/MIA/tags/LEARN/" style="color: #ff7d73">LEARN</a>
+            </span>
+            
         </span>
-        
-        
-        
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/10/16</div>
-            <a href="/MIA/2023/10/16/hell-no/">
-                <h3>little things tbc</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/MIA/categories/Tool/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        Tool
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/MIA/tags/LEARN/" style="color: #03a9f4">LEARN</a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/MIA/tags/TOOLs/" style="color: #ffa2c4">TOOLs</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <p>在学习文件上传和文件包含漏洞的时候就一直疑惑的两个东西。</p>
+<h1 id="绝对路径"><a href="#绝对路径" class="headerlink" title="绝对路径"></a>绝对路径</h1><p>例子：</p>
+<pre><code class="txt">D:\shoot\BLOG
+</code></pre>
+<p>这样完整的描述文件位置的路径就是绝对路径。<br><br>网站中类似</p>
+<pre><code class="txt">http://example.com/icons/fixone/you.php
+</code></pre>
+<p>也是绝对路径。</p>
+<blockquote>
+<p>在网站的应用中，通常我们使用”&#x2F;“来表示根目录，&#x2F;img&#x2F;photo.jpg就表示photo.jpg文件在这个网站的根目录上的img目录里.</p>
+</blockquote>
+<h1 id="相对路径"><a href="#相对路径" class="headerlink" title="相对路径"></a>相对路径</h1><p>可能诞生于上传至不同服务器的文件的访问问题——因为无法得知上传文件至服务器哪个盘，所以绝对路径无法正确访问。<br>自己相对于目标的位置，就是相对路径。</p>
+<pre><code class="txt">/imgs/love/i.png
+</code></pre>
+<blockquote>
+<p>使用“..&#x2F;”来表示上一级目录，“..&#x2F;..&#x2F;”表示上上级的目录，以此类推</p>
+</blockquote>
+
     </div>
+    
+    
+    
+    
+    
+    
     
 </div>
 
@@ -246,6 +233,12 @@
         
     </div>
     <script src="/MIA/js/main.js"></script>
+    
+    
+
+
+
+
     
 </body>
 </html>

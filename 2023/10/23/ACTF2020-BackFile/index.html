@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Categories: Tool | 66+144</title>
+    <title>ACTF2020_BackFile | 66+144</title>
     <meta name="author" content="LUEFLAM" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -31,6 +31,10 @@
 
 
 <script src="/MIA/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -144,77 +148,112 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/MIA/categories/for-fun/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                for_fun
-            </a>
+            <div class="article">
+    <div>
+        <h1>ACTF2020_BackFile</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/10/23
         </span>
         
         
-        
-        <span>
-            <a href="/MIA/categories/Tool/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                Tool
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/MIA/tags/CTF/" style="color: #ffa2c4">CTF</a>
+            </span>
+            
         </span>
-        
-        
-        
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/10/16</div>
-            <a href="/MIA/2023/10/16/hell-no/">
-                <h3>little things tbc</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/MIA/categories/Tool/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        Tool
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/MIA/tags/LEARN/" style="color: #03a9f4">LEARN</a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/MIA/tags/TOOLs/" style="color: #ffa2c4">TOOLs</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <blockquote>
+<p>其实看这个名字的时候就在想是不是和目录遍历有关了。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="Scan"><a href="#Scan" class="headerlink" title="Scan"></a>Scan</h2><p>打开靶场页面检查发现确实没有什么，所以用dirsearch扫描一下。<br>在经历漫长扫描后，在report中找到扫描文件报告打开，查找响应状态码为<code>200</code>的文件，得到：</p>
+<pre><code class="txt">200     0B   http://89ecddd8-8816-4676-a066-6ed0467a4fdc.node4.buuoj.cn:81/flag.php
+200   347B   http://89ecddd8-8816-4676-a066-6ed0467a4fdc.node4.buuoj.cn:81/index.php.bak
+</code></pre>
+<p>看大小就知道第二个有一些东西，输入网址得到一个bak文件的下载。</p>
+<pre><code class="php">//index.php.bak
+
+&lt;?php
+include_once &quot;flag.php&quot;;
+
+if(isset($_GET[&#39;key&#39;])) &#123;
+    $key = $_GET[&#39;key&#39;];
+    if(!is_numeric($key)) &#123;
+        exit(&quot;Just num!&quot;);
+    &#125;
+    $key = intval($key);
+    $str = &quot;123ffwsfwefwf24r2f32ir23jrw923rskfjwtsw54w3&quot;;
+    if($key == $str) &#123;
+        echo $flag;
+    &#125;
+&#125;
+else &#123;
+    echo &quot;Try to find out source file!&quot;;
+&#125;
+</code></pre>
+<p>进行一些翻译：</p>
+<ul>
+<li><ol>
+<li><code>include_once &quot;flag.php&quot;;</code> 表示在代码中包含了一个名为 <code>flag.php</code> 的文件。通过这行代码，<code>flag.php </code>文件中的内容会被复制到当前代码文件的相应位置——这样做的目的是为了引入该文件中定义的变量、函数或类，以便在当前代码文件中使用它们。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>如果 HTTP GET 请求中带有 <code>key</code> 参数，代码将进入相应的条件判断分支。</li>
+</ol>
+</li>
+<li><ol start="3">
+<li><code>key</code> 参数的值被赋给变量 <code>$key</code>。</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>如果 <code>$key</code> 不是一个数字（通过 <code>is_numeric</code> 函数判断），将输出 “Just num!” 并终止程序执行。</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>如果 <code>$key</code> 是一个数字，则将其转换为整数（通过 <code>intval</code> 函数实现）。</li>
+</ol>
+</li>
+<li><ol start="6">
+<li>字符串变量 <code>$str</code> 初始化为 “123ffwsfwefwf24r2f32ir23jrw923rskfjwtsw54w3”。</li>
+</ol>
+</li>
+<li><ol start="7">
+<li>如果 <code>$key</code> 的值等于 <code>$str</code> 的值，将输出 <code>flag</code> 的值。</li>
+</ol>
+</li>
+<li><ol start="8">
+<li>如果没有提供 <code>key</code> 参数，将输出 “Try to find out source file!”。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h2 id="translate"><a href="#translate" class="headerlink" title="translate"></a>translate</h2><h3 id="key"><a href="#key" class="headerlink" title="?key&#x3D;"></a>?key&#x3D;</h3><p>所以去看看<code>flag.php</code>有什么，但是打开是一片空白。<br>（在这里犯了一个错误，就是认为<code>key</code>这个请求参数是在<code>flag.php</code>下生效。然后搞半天没有任何东西。）<br>其实从<code>index.php.bak</code>这个名字就可以知道是和<code>index.php</code>有关。不过网站的默认首页就是它，所以不用写<code>http://xx/index.php?key=</code>，直接写<code>http://xx/?key=</code>就行。</p>
+<h3 id="Just-Num"><a href="#Just-Num" class="headerlink" title="Just Num"></a>Just Num</h3><p>前面提到一个<code>is_numeric()</code>函数判断是否是数字，所以<code>$key=$str</code>的值其实只是<code>123</code>.<br>(把<code>$str</code>的值ctrl+c上去，得到一个<code>just num</code>，嗯，想起来高中时候的一些题目。)</p>
+<h2 id="ファンワイ"><a href="#ファンワイ" class="headerlink" title="ファンワイ"></a>ファンワイ</h2><p>因为嫌弃dirsearch太慢所以去找了个新的<code>dirmap</code>，但是没有任何out file生成……可能还需要调一下配置。</p>
+
     </div>
+    
+    
+    
+    
+    
+    
     
 </div>
 
@@ -246,6 +285,12 @@
         
     </div>
     <script src="/MIA/js/main.js"></script>
+    
+    
+
+
+
+
     
 </body>
 </html>
