@@ -226,95 +226,6 @@
 <li>攻击者盗用用户身份以受害者名义进行发送请求（恶意的）。</li>
 <li>互联网上的许多站点仍对此毫无防备，以至于安全业界称CSRF为“沉睡的巨人”</li>
 </ul>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><font size=1>虽然很想搞个图片但发现太丑不如等我有空自己画</font></p>
-<hr>
-<ul>
-<li><strong>ROLE</strong><ul>
-<li>User Browser</li>
-<li><font color=green>Trusted</font> Web A</li>
-<li><font color=red>Hacked</font> Web B</li>
-</ul>
-</li>
-<li>STEPS<ul>
-<li><ol>
-<li>UB浏览并登入Web A</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>Web A返回Cookie，该Cookie储存在UB的电脑上。</li>
-</ol>
-</li>
-<li><ol start="3">
-<li>User没有登出A网站，又去访问了Web B</li>
-</ol>
-</li>
-<li><ol start="4">
-<li>B发出访问A的请求，User轻轻一点</li>
-</ol>
-</li>
-<li><ol start="5">
-<li>User电脑根据请求去访问A</li>
-</ol>
-</li>
-<li><ol start="6">
-<li>Web A根据Cookie以为是验证过的用户来了，所以以为是User在进行操作。</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<ul>
-<li>2 parts<ul>
-<li>存储在本机的cookie</li>
-<li>不登出A的情况下访问B<br>比较有趣的部分：</li>
-</ul>
-</li>
-<li>1.登录一个网站后打开另一个tab访问其他网站</li>
-<li>2。cookie的有效期——会话何时结束（关闭浏览器并不意味着会话结束）</li>
-<li>3.Web B可能只是一个存在漏洞的网站（大多数情况下不是hacker自建（真有这么闲不如转行做web开发））</li>
-</ul>
-<hr>
-<h2 id="Demo-Test"><a href="#Demo-Test" class="headerlink" title="Demo Test"></a>Demo Test</h2><p>这是一个CRSF Attack Demo——<a href=https://dsb.victorzhou.com/login>Definitely Secure Bank</a><br><a href=https://victorzhou.com/blog/csrf/>一些官方解释文档</a><br><br>根据我的大致理解，这一个demo是被修改了post请求。</p>
-<pre><code class="js">//before you transfer:
-
-    const data = new URLSearchParams();
-    for (const pair of new FormData(formRef.current)) &#123;
-      // pair[0] is the field name, pair[1] is the field value
-      data.append(pair[0], pair[1]);
-    &#125;
-
-    fetch(&#39;/transfer&#39;, &#123;
-      method: &#39;post&#39;,
-      body: data,
-    &#125;)
-
-//after:
-
-const body = new URLSearchParams(&#39;amount=10000&amp;description=Gotcha!&amp;to=Evil-Scammers&#39;);
-fetch(&#39;https://dsb.victorzhou.com/transfer&#39;, &#123;
-  body,
-  credentials: &#39;include&#39;, // include cookies, despite being a cross-origin request
-  method: &#39;post&#39;,
-  mode: &#39;no-cors&#39;,
-&#125;);
-</code></pre>
-<p>所以可以看到<code>const body</code>的值被修改。</p>
-<h2 id="至于GET，因为HTTP规范的原因，很多网站禁止GET请求更新资源。"><a href="#至于GET，因为HTTP规范的原因，很多网站禁止GET请求更新资源。" class="headerlink" title="至于GET，因为HTTP规范的原因，很多网站禁止GET请求更新资源。"></a>至于<code>GET</code>，因为<a href=https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Resources_and_specifications>HTTP规范</a>的原因，很多网站禁止<code>GET</code>请求更新资源。</h2><h2 id="Prevent"><a href="#Prevent" class="headerlink" title="Prevent"></a>Prevent</h2><h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h3><blockquote>
-<p>secret random string</p>
-</blockquote>
-<ul>
-<li><p>Cookie Hashing</p>
-</li>
-<li><p>验证码</p>
-</li>
-<li><p>one-Time Token</p>
-</li>
-</ul>
-<blockquote>
-<p>Token</p>
-</blockquote>
-
             
         </div>
     </div>
@@ -328,7 +239,7 @@ fetch(&#39;https://dsb.victorzhou.com/transfer&#39;, &#123;
         
         <span class="tag">
             
-            <a href="/MIA/tags/LEARN/" style="color: #00a596">LEARN</a>
+            <a href="/MIA/tags/LEARN/" style="color: #00bcd4">LEARN</a>
         </span>
         
     </div>
@@ -367,7 +278,7 @@ fetch(&#39;https://dsb.victorzhou.com/transfer&#39;, &#123;
         
         <span class="tag">
             
-            <a href="/MIA/tags/CTF/" style="color: #00bcd4">CTF</a>
+            <a href="/MIA/tags/CTF/" style="color: #ff7d73">CTF</a>
         </span>
         
     </div>
@@ -467,7 +378,7 @@ fetch(&#39;https://dsb.victorzhou.com/transfer&#39;, &#123;
         
         <span class="tag">
             
-            <a href="/MIA/tags/CTF/" style="color: #03a9f4">CTF</a>
+            <a href="/MIA/tags/CTF/" style="color: #ffa2c4">CTF</a>
         </span>
         
     </div>
@@ -523,7 +434,7 @@ fetch(&#39;https://dsb.victorzhou.com/transfer&#39;, &#123;
         
         <span class="tag">
             
-            <a href="/MIA/tags/LEARN/" style="color: #00a596">LEARN</a>
+            <a href="/MIA/tags/LEARN/" style="color: #03a9f4">LEARN</a>
         </span>
         
     </div>
@@ -576,12 +487,12 @@ fetch(&#39;https://dsb.victorzhou.com/transfer&#39;, &#123;
         
         <span class="tag">
             
-            <a href="/MIA/tags/RVC/" style="color: #ffa2c4">RVC</a>
+            <a href="/MIA/tags/RVC/" style="color: #00a596">RVC</a>
         </span>
         
         <span class="tag">
             
-            <a href="/MIA/tags/for-fun/" style="color: #00a596">for_fun</a>
+            <a href="/MIA/tags/for-fun/" style="color: #ff7d73">for_fun</a>
         </span>
         
     </div>
@@ -724,7 +635,7 @@ fetch(&#39;https://dsb.victorzhou.com/transfer&#39;, &#123;
         
         <span class="tag">
             
-            <a href="/MIA/tags/LEARN/" style="color: #00a596">LEARN</a>
+            <a href="/MIA/tags/LEARN/" style="color: #03a9f4">LEARN</a>
         </span>
         
     </div>
