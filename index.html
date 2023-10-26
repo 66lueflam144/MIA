@@ -202,6 +202,140 @@
 </div>
 
 <div class="post">
+    <a href="/MIA/2023/10/26/CSRF/">
+        <h2 class="post-title">CSRF</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/10/26
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><blockquote>
+<p>跨站请求伪造，也称One click attack，XSRF</p>
+</blockquote>
+<ul>
+<li>攻击者盗用用户身份以受害者名义进行发送请求（恶意的）。</li>
+<li>互联网上的许多站点仍对此毫无防备，以至于安全业界称CSRF为“沉睡的巨人”</li>
+</ul>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><font size=1>虽然很想搞个图片但发现太丑不如等我有空自己画</font></p>
+<hr>
+<ul>
+<li><strong>ROLE</strong><ul>
+<li>User Browser</li>
+<li><font color=green>Trusted</font> Web A</li>
+<li><font color=red>Hacked</font> Web B</li>
+</ul>
+</li>
+<li>STEPS<ul>
+<li><ol>
+<li>UB浏览并登入Web A</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>Web A返回Cookie，该Cookie储存在UB的电脑上。</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>User没有登出A网站，又去访问了Web B</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>B发出访问A的请求，User轻轻一点</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>User电脑根据请求去访问A</li>
+</ol>
+</li>
+<li><ol start="6">
+<li>Web A根据Cookie以为是验证过的用户来了，所以以为是User在进行操作。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>2 parts<ul>
+<li>存储在本机的cookie</li>
+<li>不登出A的情况下访问B<br>比较有趣的部分：</li>
+</ul>
+</li>
+<li>1.登录一个网站后打开另一个tab访问其他网站</li>
+<li>2。cookie的有效期——会话何时结束（关闭浏览器并不意味着会话结束）</li>
+<li>3.Web B可能只是一个存在漏洞的网站（大多数情况下不是hacker自建（真有这么闲不如转行做web开发））</li>
+</ul>
+<hr>
+<h2 id="Demo-Test"><a href="#Demo-Test" class="headerlink" title="Demo Test"></a>Demo Test</h2><p>这是一个CRSF Attack Demo——<a href=https://dsb.victorzhou.com/login>Definitely Secure Bank</a><br><a href=https://victorzhou.com/blog/csrf/>一些官方解释文档</a><br><br>根据我的大致理解，这一个demo是被修改了post请求。</p>
+<pre><code class="js">//before you transfer:
+
+    const data = new URLSearchParams();
+    for (const pair of new FormData(formRef.current)) &#123;
+      // pair[0] is the field name, pair[1] is the field value
+      data.append(pair[0], pair[1]);
+    &#125;
+
+    fetch(&#39;/transfer&#39;, &#123;
+      method: &#39;post&#39;,
+      body: data,
+    &#125;)
+
+//after:
+
+const body = new URLSearchParams(&#39;amount=10000&amp;description=Gotcha!&amp;to=Evil-Scammers&#39;);
+fetch(&#39;https://dsb.victorzhou.com/transfer&#39;, &#123;
+  body,
+  credentials: &#39;include&#39;, // include cookies, despite being a cross-origin request
+  method: &#39;post&#39;,
+  mode: &#39;no-cors&#39;,
+&#125;);
+</code></pre>
+<p>所以可以看到<code>const body</code>的值被修改。</p>
+<h2 id="至于GET，因为HTTP规范的原因，很多网站禁止GET请求更新资源。"><a href="#至于GET，因为HTTP规范的原因，很多网站禁止GET请求更新资源。" class="headerlink" title="至于GET，因为HTTP规范的原因，很多网站禁止GET请求更新资源。"></a>至于<code>GET</code>，因为<a href=https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Resources_and_specifications>HTTP规范</a>的原因，很多网站禁止<code>GET</code>请求更新资源。</h2><h2 id="Prevent"><a href="#Prevent" class="headerlink" title="Prevent"></a>Prevent</h2><h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h3><blockquote>
+<p>secret random string</p>
+</blockquote>
+<ul>
+<li><p>Cookie Hashing</p>
+</li>
+<li><p>验证码</p>
+</li>
+<li><p>one-Time Token</p>
+</li>
+</ul>
+<blockquote>
+<p>Token</p>
+</blockquote>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/MIA/tags/LEARN/" style="color: #00bcd4">LEARN</a>
+        </span>
+        
+    </div>
+    <a href="/MIA/2023/10/26/CSRF/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
     <a href="/MIA/2023/10/23/R-C-E/">
         <h2 class="post-title">R!C!E!</h2>
     </a>
@@ -233,7 +367,7 @@
         
         <span class="tag">
             
-            <a href="/MIA/tags/CTF/" style="color: #00bcd4">CTF</a>
+            <a href="/MIA/tags/CTF/" style="color: #ff7d73">CTF</a>
         </span>
         
     </div>
@@ -245,6 +379,15 @@
         <h2 class="post-title">NewStarCTF2023 听说你是个游戏高手</h2>
     </a>
     <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/MIA/categories/CTF-Middle/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                CTF_Middle
+            </a>
+        </span>
         
         <span class="date">
             <span class="icon">
@@ -274,7 +417,7 @@
         
         <span class="tag">
             
-            <a href="/MIA/tags/ctf/" style="color: #ffa2c4">ctf</a>
+            <a href="/MIA/tags/CTF/" style="color: #ff7d73">CTF</a>
         </span>
         
     </div>
@@ -286,6 +429,15 @@
         <h2 class="post-title">ACTF2020_BackFile</h2>
     </a>
     <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/MIA/categories/CTF-Easy/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                CTF_Easy
+            </a>
+        </span>
         
         <span class="date">
             <span class="icon">
@@ -315,7 +467,7 @@
         
         <span class="tag">
             
-            <a href="/MIA/tags/CTF/" style="color: #00bcd4">CTF</a>
+            <a href="/MIA/tags/CTF/" style="color: #00a596">CTF</a>
         </span>
         
     </div>
@@ -424,12 +576,12 @@
         
         <span class="tag">
             
-            <a href="/MIA/tags/RVC/" style="color: #ffa2c4">RVC</a>
+            <a href="/MIA/tags/RVC/" style="color: #00a596">RVC</a>
         </span>
         
         <span class="tag">
             
-            <a href="/MIA/tags/for-fun/" style="color: #00bcd4">for_fun</a>
+            <a href="/MIA/tags/for-fun/" style="color: #03a9f4">for_fun</a>
         </span>
         
     </div>
@@ -474,7 +626,7 @@
         
         <span class="tag">
             
-            <a href="/MIA/tags/LEARN/" style="color: #00bcd4">LEARN</a>
+            <a href="/MIA/tags/LEARN/" style="color: #ffa2c4">LEARN</a>
         </span>
         
     </div>
@@ -486,6 +638,15 @@
         <h2 class="post-title">Checkln</h2>
     </a>
     <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/MIA/categories/CTF-Easy/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                CTF_Easy
+            </a>
+        </span>
         
         <span class="date">
             <span class="icon">
@@ -521,7 +682,7 @@
         
         <span class="tag">
             
-            <a href="/MIA/tags/File-Upload/" style="color: #00bcd4">File Upload</a>
+            <a href="/MIA/tags/File-Upload/" style="color: #ffa2c4">File Upload</a>
         </span>
         
     </div>
@@ -563,56 +724,11 @@
         
         <span class="tag">
             
-            <a href="/MIA/tags/LEARN/" style="color: #ffa2c4">LEARN</a>
+            <a href="/MIA/tags/LEARN/" style="color: #03a9f4">LEARN</a>
         </span>
         
     </div>
     <a href="/MIA/2023/10/17/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0GET/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/MIA/2023/10/17/Begin-of-HTTP/">
-        <h2 class="post-title">2023NewStarCTF Begin of HTTP</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/10/17
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>OMG…居然是败给了一个POST&amp;GET</p>
-<h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p>感觉和之前做过的一个题目很像，可能出自同一个出题人之手。<br><br><br>按照要求进行GET传参后，需要进行POST传参。<br>于是我就在这里出现了问题。<br>我直接使用burp suite的repeater里面的change request method，请求头也从</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/MIA/tags/CTF/" style="color: #ff7d73">CTF</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/MIA/tags/HTTP/" style="color: #00bcd4">HTTP</a>
-        </span>
-        
-    </div>
-    <a href="/MIA/2023/10/17/Begin-of-HTTP/" class="go-post">阅读全文</a>
 </div>
 
 
