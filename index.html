@@ -202,6 +202,54 @@
 </div>
 
 <div class="post">
+    <a href="/MIA/2023/10/27/Buy-Flag/">
+        <h2 class="post-title">Buy Flag</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/MIA/categories/CTF-Easy/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                CTF_Easy
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/10/27
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p>之前还是一个新手村门口人的时候打开过，那个时候的无助真的有点好笑。</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/MIA/tags/CTF/" style="color: #03a9f4">CTF</a>
+        </span>
+        
+    </div>
+    <a href="/MIA/2023/10/27/Buy-Flag/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
     <a href="/MIA/2023/10/27/BJDCTF-easy-MD5/">
         <h2 class="post-title">BJDCTF_Easy-MD5</h2>
     </a>
@@ -235,113 +283,7 @@
 <li>字母</li>
 <li>数字+符号</li>
 <li>简单SQL语句</li>
-<li>简单XSS语句</li>
-</ul>
-<p>都没什么效果，所以抓包。</p>
-<pre><code class="http">GET /leveldo4.php?password=1 HTTP/1.1
-Host: f4a0e561-18e7-44bb-97d3-df00b826a81a.node4.buuoj.cn:81
-Upgrade-Insecure-Requests: 1
-...
-Referer: http://f4a0e561-18e7-44bb-97d3-df00b826a81a.node4.buuoj.cn:81/leveldo4.php?password=9
-Accept-Encoding: gzip, deflate
-...
-</code></pre>
-<p>查看Response</p>
-<pre><code class="htttp">HTTP/1.1 200 OK
-Server: openresty
-Date: Fri, 27 Oct 2023 04:28:47 GMT
-Content-Type: text/html; charset=UTF-8
-Connection: close
-Hint: select * from &#39;admin&#39; where password=md5($pass,true)
-X-Powered-By: PHP/7.3.13
-Content-Length: 3107
-</code></pre>
-<p>那个<code>Hint</code>(从 admin 表中选择密码字段等于 $pass 变量的 MD5 值的记录),比较显眼。所以启用<code>sqlmap</code>。<br>同时也启用<code>dirsearch</code>和<code>dirmap</code>（结果是什么也没得到）。<br><strong>结果</strong>:</p>
-<ul>
-<li><code>sqlmap</code>——<code>GET parameter &#39;password&#39; does not seem to be injectable</code></li>
-<li><code>dirmap</code>——没有可用信息</li>
-<li><code>dirsearch</code>——几个200 URL都是跳转<code>leveldo4.php</code></li>
-</ul>
-<h1 id="MD5？"><a href="#MD5？" class="headerlink" title="MD5？"></a>MD5？</h1><p>再回看<code>Hint</code>：</p>
-<blockquote>
-<p>PHP中md5函数如果第二个参数设为true，返回的是二进制内容，如果能恰好凑出类似’or的字符串，就可以构成SQL注入</p>
-</blockquote>
-<p>所以就是要构造一个经过<code>MD5</code>再经过<code>二进制</code>后得到的值有<code>‘or</code>的payload。<br>上网找了找，说是有</p>
-<ul>
-<li><code>ffifdyop</code></li>
-</ul>
-<p>将password的值修改为<code>ffidyop</code>就会跳转界面<code>levels91.php</code>。<br>好大一个Do You Like MD5?</p>
-<p>查看页面代码：</p>
-<pre><code class="html">&lt;!--
-    $a = $GET[&#39;a&#39;];
-    $b = $_GET[&#39;b&#39;];
-
-    if($a != $b &amp;&amp; md5($a) == md5($b))&#123;
-        //...
-    &#125;
---&gt;
-</code></pre>
-<ul>
-<li><ol>
-<li>从 GET 请求参数中获取 <code>a</code> 和 <code>b</code> 的值，并将它们分别赋给变量 <code>$a</code> 和 <code>$b</code>。</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>接下来，使用条件判断语句进行逻辑判断。如果 <code>$a</code> 不等于 <code>$b</code> 并且 <code>$a</code> 的 MD5 值等于 <code>$b</code> 的 MD5 值，即 <code>md5($a) == md5($b)</code>，则进入条件判断的代码块内部。</li>
-</ol>
-</li>
-</ul>
-<p>所以接下来又是寻找符合条件的a与b。<br>有两种解决方式：</p>
-<blockquote>
-<p>1.PHP弱类型比较绕过</p>
-</blockquote>
-<p>参考<a href=https://blog.csdn.net/u014549283/article/details/81288443>PHP hash漏洞之MD5</a>可以得到：</p>
-<ul>
-<li>PHP在处理哈希字符串时，会利用”!&#x3D;”或”&#x3D;&#x3D;”来对哈希值进行比较，它把每一个以”0E”开头的哈希值都解释为0，所以如果两个不同的密码经过哈希以后，其哈希值都是以”0E”开头的，那么PHP将会认为他们相同，都是0<br>（为什么说是hash值？）<br>另一个简洁版本：<a href=https://www.cnblogs.com/ainsliaea/p/15126218.html>PHP MD5相等绕过</a></li>
-</ul>
-<p>构造payload：</p>
-<pre><code class="http">?a=s878926199a&amp;b=s155964671a
-</code></pre>
-<blockquote>
-<p>2.数组绕过</p>
-</blockquote>
-<p>在上面那个简洁版本里也提到了这个数组绕过，不过说PHP8就行不通了。不过靶场的PHP依旧适用。</p>
-<p>参考<a href=https://mrl64.github.io/2021/12/18/php%E5%BC%B1%E7%B1%BB%E5%9E%8B%E7%BB%95%E8%BF%87%E6%80%BB%E7%BB%93/>PHP弱类型绕过</a>:</p>
-<ul>
-<li><code>md5()/sha()</code>这类函数无法处理数组，如果传入的是数组,<code>md5()</code>返回<code>NULL</code>，加密后得到的也是<code>NULL</code>，满足两个md5值相等</li>
-</ul>
-<p>构造payloa：</p>
-<pre><code class="http">?a[]=1&amp;b[]=2
-</code></pre>
-<p> <code>a[]=1&amp;b[]=2</code>，其中 <code>a[]</code> 和 <code>b[]</code> 是数组参数。当 PHP 解析这个查询字符串时，它会将这些参数解析为数组。</p>
-<pre><code class="php">$_GET[&#39;a&#39;] = array(&#39;1&#39;);
-$_GET[&#39;b&#39;] = array(&#39;2&#39;);
-</code></pre>
-<ul>
-<li>由于md5()函数存在缺陷,加密数组的时候返回值是NULL，即在MD5加密之后，<code>a[]=NULL、b[]=NULL</code>，符合要求。</li>
-</ul>
-<p>然后我们又跳转页面…</p>
-<hr>
-<h1 id="param？"><a href="#param？" class="headerlink" title="param？"></a>param？</h1><pre><code class="php">&lt;?php
-error_reporting(0);
-include &quot;flag.php&quot;;
-
-highlight_file(__FILE__);
-
-if($_POST[&#39;param1&#39;]!==$_POST[&#39;param2&#39;]&amp;&amp;md5($_POST[&#39;param1&#39;])===md5($_POST[&#39;param2&#39;]))&#123;
-    echo $flag;
-&#125;
-</code></pre>
-<p>其实可以看出就是call back，只不过要以<code>POST</code>方式传参，所以打开我的firefox渗透版:</p>
-<pre><code class="http">http://fdcf43aa-9abd-4770-8798-7d1efbb1ffb0.node4.buuoj.cn:81/levell14.php
-//post data
-param1[]=1&amp;param2[]=2
-</code></pre>
-<p>最后得到flag。</p>
-<hr>
-<h1 id="ファンワイ"><a href="#ファンワイ" class="headerlink" title="ファンワイ"></a>ファンワイ</h1><p>比较详细的解释了PHP比较和绕过的原理：<a href=https://xz.aliyun.com/t/5426>PHP 黑魔法</a><br></p>
-<p><a href=https://www.cnblogs.com/linfangnan/p/13411103.html>CTF WEB PHP弱类型绕过</a></p>
-
+<li>简单XSS语句
             
         </div>
     </div>
@@ -355,7 +297,7 @@ param1[]=1&amp;param2[]=2
         
         <span class="tag">
             
-            <a href="/MIA/tags/CTF/" style="color: #00bcd4">CTF</a>
+            <a href="/MIA/tags/CTF/" style="color: #00a596">CTF</a>
         </span>
         
         <span class="tag">
@@ -405,7 +347,7 @@ param1[]=1&amp;param2[]=2
         
         <span class="tag">
             
-            <a href="/MIA/tags/Reading/" style="color: #00a596">Reading</a>
+            <a href="/MIA/tags/Reading/" style="color: #ffa2c4">Reading</a>
         </span>
         
     </div>
@@ -450,7 +392,7 @@ param1[]=1&amp;param2[]=2
         
         <span class="tag">
             
-            <a href="/MIA/tags/LEARN/" style="color: #ff7d73">LEARN</a>
+            <a href="/MIA/tags/LEARN/" style="color: #ffa2c4">LEARN</a>
         </span>
         
     </div>
@@ -489,7 +431,7 @@ param1[]=1&amp;param2[]=2
         
         <span class="tag">
             
-            <a href="/MIA/tags/CTF/" style="color: #03a9f4">CTF</a>
+            <a href="/MIA/tags/CTF/" style="color: #00a596">CTF</a>
         </span>
         
     </div>
@@ -539,7 +481,7 @@ param1[]=1&amp;param2[]=2
         
         <span class="tag">
             
-            <a href="/MIA/tags/CTF/" style="color: #00a596">CTF</a>
+            <a href="/MIA/tags/CTF/" style="color: #ffa2c4">CTF</a>
         </span>
         
     </div>
@@ -589,7 +531,7 @@ param1[]=1&amp;param2[]=2
         
         <span class="tag">
             
-            <a href="/MIA/tags/CTF/" style="color: #ffa2c4">CTF</a>
+            <a href="/MIA/tags/CTF/" style="color: #7B68EE">CTF</a>
         </span>
         
     </div>
@@ -634,7 +576,7 @@ param1[]=1&amp;param2[]=2
         
         <span class="tag">
             
-            <a href="/MIA/tags/LEARN/" style="color: #00bcd4">LEARN</a>
+            <a href="/MIA/tags/LEARN/" style="color: #CD5C5C">LEARN</a>
         </span>
         
     </div>
@@ -692,56 +634,11 @@ param1[]=1&amp;param2[]=2
         
         <span class="tag">
             
-            <a href="/MIA/tags/for-fun/" style="color: #00bcd4">for_fun</a>
+            <a href="/MIA/tags/for-fun/" style="color: #ff7d73">for_fun</a>
         </span>
         
     </div>
     <a href="/MIA/2023/10/20/RVC-test/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/MIA/2023/10/17/file-inclusion/">
-        <h2 class="post-title">file inclusion</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/10/17
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h1 id="文件包含漏洞"><a href="#文件包含漏洞" class="headerlink" title="文件包含漏洞"></a>文件包含漏洞</h1><p>PHP version</p>
-<h2 id="包含函数"><a href="#包含函数" class="headerlink" title="包含函数"></a>包含函数</h2><ul>
-<li>include</li>
-<li>require</li>
-<li>include_once</li>
-<li>require_once</li>
-</ul>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/MIA/tags/LEARN/" style="color: #ffa2c4">LEARN</a>
-        </span>
-        
-    </div>
-    <a href="/MIA/2023/10/17/file-inclusion/" class="go-post">阅读全文</a>
 </div>
 
 
