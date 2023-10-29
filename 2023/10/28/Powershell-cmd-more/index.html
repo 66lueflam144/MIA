@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>HEXO+Github Pages | 66+144</title>
+    <title>Powershell&amp;cmd&amp;more | 66+144</title>
     <meta name="author" content="LUEFLAM" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -150,14 +150,14 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>HEXO+Github Pages</h1>
+        <h1>Powershell&amp;cmd&amp;more</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2023/10/17
+            2023/10/28
         </span>
         
         
@@ -169,12 +169,7 @@
             
             <span class="tag">
                 
-                <a href="/MIA/tags/LEARN/" style="color: #ff7d73">LEARN</a>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/MIA/tags/HEXO/" style="color: #03a9f4">HEXO</a>
+                <a href="/MIA/tags/LEARN/" style="color: #ffa2c4">LEARN</a>
             </span>
             
         </span>
@@ -182,52 +177,34 @@
     </div>
     
     <div class="content" v-pre>
-        <h1 id="HEXO"><a href="#HEXO" class="headerlink" title="HEXO"></a>HEXO</h1><h2 id="HEXO-GITHUB-PAGES"><a href="#HEXO-GITHUB-PAGES" class="headerlink" title="HEXO+GITHUB PAGES"></a>HEXO+GITHUB PAGES</h2><p>因为之前做的那个博客上传出现了问题，所以又搭建一个，其实也可以用docsify的，就是好像css渲染出现问题来着就放弃了。<br></p>
-<span id="more"></span>
-
+        <h1 id="PowerShell"><a href="#PowerShell" class="headerlink" title="PowerShell"></a>PowerShell</h1><blockquote>
+<p>PowerShell 是一种跨平台的任务自动化解决方案，由命令行 shell、脚本语言和配置管理框架组成，所有输入和输出都是.NET对象。 PowerShell 在 Windows、Linux 和 macOS 上运行。</p>
+</blockquote>
+<blockquote>
+<p>功能：</p>
+</blockquote>
 <ul>
-<li>前提是Node.js你配置好了。</li>
-<li>接着就是安装hexo框架，我们通过cnpm（npm国内镜像慢到你绝望甚至连接不上），所以先安装cnpm</li>
+<li>通过函数、类、脚本、模块进行扩展</li>
+<li>便于输出的可扩展格式系统</li>
+<li>用于创建动态类的可扩展类型系统</li>
+<li>对常用数据格式的内置支持</li>
 </ul>
-<pre><code class="js">npm install -g cnpm --registry=https://registry.npm.taobao.org
+<h2 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h2><blockquote>
+<p>shell的功能：</p>
+</blockquote>
+<ul>
+<li>命令行记录</li>
+<li>tab自动补全、命令预测</li>
+<li>支持命令和参数别名</li>
+<li>链接命令的管道</li>
+<li>控制台帮助系统</li>
+</ul>
+<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>owerShell 是新式命令 shell，其中包括其他常用 shell 的最佳功能。 与大多数仅接受并返回文本的 shell 不同，PowerShell 接受并返回 <code>.NET</code>对象。</p>
+<h2 id="PowerShell-Versions"><a href="#PowerShell-Versions" class="headerlink" title="PowerShell Versions"></a>PowerShell Versions</h2><pre><code class="txt">Windows PowerShell //PowerShell控制台
+Windows PowerShell ISE //集成脚本环境
+Windows PowerShell(x86)
+Windows PowerShell ISE(x86)
 </code></pre>
-<ul>
-<li>安装hexo框架</li>
-</ul>
-<pre><code class="js">cnpm install -g hexo-cli
-</code></pre>
-<ul>
-<li>接着建一个仓库，不一定要求是<code>xxx.github.io</code>这种名字</li>
-<li>clone至本地</li>
-<li>hexo初始化</li>
-</ul>
-<pre><code class="js">hexo init xxx
-</code></pre>
-<p>需要注意的是，xxx是指你在你clone的仓库文件里新的文件夹（不需要你自建因为这个命令就是创建且初始化但是建了也没关系），不是指你仓库名（因为hexo拒绝非空文件夹的初始化）</p>
-<ul>
-<li>初始化后<code>hexo s</code>就可以启动本地查看。（可看可不看，这不是重点，一般用于预览）</li>
-<li>部署到github：<ul>
-<li>在初始化过的文件夹里<code>cnpm install --save hexo-deployer-git</code>安装必要的插件</li>
-<li>初始化后的文件夹里有一个<code>_config.yml</code>文件，进入对一些数据进行修改（记得里面的都需要在<code>:</code>后空格才能生效）：<ul>
-<li><code># Site</code>部分就是修改自己博客的title、博客主人名之类</li>
-<li><code># URL</code>部分下的<code>url</code>修改为你那个仓库的URL，是带<code>.git</code>结尾的</li>
-<li>还要添加一个<code>root</code>，填写仓库名，比如<code>/yourname.github.io/</code>。root有无对<code>io</code>仓库可能没什么影响但对非<code>io</code>仓库影响很大——可能css，js的渲染加载不出来。</li>
-<li><code>theme</code>部分是在你使用了其他theme后修改，后面可以具体说。</li>
-<li><code># Deployment</code>部分，<code>type: git</code>,<code>repo: https://xxx/xxx.git</code>,<code>branch: gh-pages</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>搞完上述的配置之后，命令行输入每次更新必输入的三句命令：<ul>
-<li><code>hexo clean</code></li>
-<li><code>hexo g</code></li>
-<li><code>hexo d</code>（第2和第3可以合并为<code>hexo g -d</code>）</li>
-</ul>
-</li>
-<li>hexo连接是一个谜，所以有时候会报错，失败了也不用着急，全随缘，没准什么时候就d成功了。 </li>
-<li>一些其他命令<code>hexo new post xxx</code>，就会自动创建新文件，目录它会自动告诉你。</li>
-</ul>
-<h3 id="PLUS-theme"><a href="#PLUS-theme" class="headerlink" title="PLUS theme"></a>PLUS theme</h3><p>找到一个喜欢的主题xxx，下载解压到博客文件夹的<code>theme</code>文件夹里面，一般theme都会有使用手册，按照里面的要求进行修改就行。<br>然后再回到根目录下的<code>_config.yml</code>文件里修改<code>theme: xxx</code>。最后三句命令进行更新推送，等待page build好就可以看到了。<br><br><a href=https://hexo.io/themes/>Hexo theme</a><br><a href=https://hexo.fluid-dev.com/archives/>fluid theme</a></p>
 
     </div>
     

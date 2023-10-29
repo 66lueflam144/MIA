@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>HEXO+Github Pages | 66+144</title>
+    <title>66+144</title>
     <meta name="author" content="LUEFLAM" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -36,9 +36,7 @@
 
 
 
-
-
-
+<script src="/MIA/js/lib/home.js"></script>
 
 <link rel="stylesheet" href="/MIA/css/main.css" />
 
@@ -148,94 +146,168 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div class="article">
-    <div>
-        <h1>HEXO+Github Pages</h1>
+            <div id="home-head">
+    <div id="home-background" ref="homeBackground" data-images="/MIA/images/antifragile_car.jpg,/MIA/images/antifragile_5.jpg,/MIA/images/chaewon_eyes.jpg,/MIA/images/ditto_dan.jpg"></div>
+    <div id="home-info" @click="homeClick">
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="info">
+            <div class="wrap">
+                <h1>66+144</h1>
+                <h3></h3>
+                <h5></h5>
+            </div>
+        </span>
     </div>
-    <div class="info">
+</div>
+<div id="home-posts-wrap" true ref="homePostsWrap">
+    <div id="home-posts">
+        
+
+<div class="post">
+    <a href="/MIA/2023/10/16/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/">
+        <h2 class="post-title">一句话木马</h2>
+    </a>
+    <div class="category-and-date">
+        
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2023/10/17
+            2023/10/16
         </span>
         
         
-        <span class="tags">
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="Level-1"><a href="#Level-1" class="headerlink" title="Level_1"></a>Level_1</h1><p>最简单的一个php一句话木马：</p>
+<pre><code class="php">&lt;? php @eval($_POST[&#39;shell&#39;]); ?&gt;
+</code></pre>
+<ul>
+<li><code>@</code>不进行报错</li>
+<li>php中有几个超全局变量，<code>$_POST</code>是其中一个。<br><code>$_POST[&#39;shell&#39;]</code>意为用POST的方法接收shell变量。</li>
+<li><code>eval()</code>函数将字符串作为PHP代码执行<br></li>
+</ul>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/MIA/tags/LEARN/" style="color: #03a9f4">LEARN</a>
+        </span>
+        
+    </div>
+    <a href="/MIA/2023/10/16/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/MIA/2023/10/16/hell-no/">
+        <h2 class="post-title">little things tbc</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/MIA/categories/Tool/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Tool
+            </a>
+        </span>
+        
+        <span class="date">
             <span class="icon">
-                <i class="fa-solid fa-tags fa-fw"></i>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
+            2023/10/16
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
             
+            <h1 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h1><h2 id="下载Module"><a href="#下载Module" class="headerlink" title="下载Module"></a>下载Module</h2><p>有时候使用py的时候会报错说xx module没有，上网随便找一个下载命令发现好不靠谱，所以仔细找了一下实用的。</p>
             
-            <span class="tag">
-                
-                <a href="/MIA/tags/LEARN/" style="color: #ff7d73">LEARN</a>
-            </span>
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
             
-            <span class="tag">
-                
-                <a href="/MIA/tags/HEXO/" style="color: #03a9f4">HEXO</a>
-            </span>
+            <a href="/MIA/tags/TOOLs/" style="color: #CD5C5C">TOOLs</a>
+        </span>
+        
+        <span class="tag">
             
+            <a href="/MIA/tags/LEARN/" style="color: #7B68EE">LEARN</a>
         </span>
         
     </div>
-    
-    <div class="content" v-pre>
-        <h1 id="HEXO"><a href="#HEXO" class="headerlink" title="HEXO"></a>HEXO</h1><h2 id="HEXO-GITHUB-PAGES"><a href="#HEXO-GITHUB-PAGES" class="headerlink" title="HEXO+GITHUB PAGES"></a>HEXO+GITHUB PAGES</h2><p>因为之前做的那个博客上传出现了问题，所以又搭建一个，其实也可以用docsify的，就是好像css渲染出现问题来着就放弃了。<br></p>
-<span id="more"></span>
+    <a href="/MIA/2023/10/16/hell-no/" class="go-post">阅读全文</a>
+</div>
 
-<ul>
-<li>前提是Node.js你配置好了。</li>
-<li>接着就是安装hexo框架，我们通过cnpm（npm国内镜像慢到你绝望甚至连接不上），所以先安装cnpm</li>
-</ul>
-<pre><code class="js">npm install -g cnpm --registry=https://registry.npm.taobao.org
-</code></pre>
-<ul>
-<li>安装hexo框架</li>
-</ul>
-<pre><code class="js">cnpm install -g hexo-cli
-</code></pre>
-<ul>
-<li>接着建一个仓库，不一定要求是<code>xxx.github.io</code>这种名字</li>
-<li>clone至本地</li>
-<li>hexo初始化</li>
-</ul>
-<pre><code class="js">hexo init xxx
-</code></pre>
-<p>需要注意的是，xxx是指你在你clone的仓库文件里新的文件夹（不需要你自建因为这个命令就是创建且初始化但是建了也没关系），不是指你仓库名（因为hexo拒绝非空文件夹的初始化）</p>
-<ul>
-<li>初始化后<code>hexo s</code>就可以启动本地查看。（可看可不看，这不是重点，一般用于预览）</li>
-<li>部署到github：<ul>
-<li>在初始化过的文件夹里<code>cnpm install --save hexo-deployer-git</code>安装必要的插件</li>
-<li>初始化后的文件夹里有一个<code>_config.yml</code>文件，进入对一些数据进行修改（记得里面的都需要在<code>:</code>后空格才能生效）：<ul>
-<li><code># Site</code>部分就是修改自己博客的title、博客主人名之类</li>
-<li><code># URL</code>部分下的<code>url</code>修改为你那个仓库的URL，是带<code>.git</code>结尾的</li>
-<li>还要添加一个<code>root</code>，填写仓库名，比如<code>/yourname.github.io/</code>。root有无对<code>io</code>仓库可能没什么影响但对非<code>io</code>仓库影响很大——可能css，js的渲染加载不出来。</li>
-<li><code>theme</code>部分是在你使用了其他theme后修改，后面可以具体说。</li>
-<li><code># Deployment</code>部分，<code>type: git</code>,<code>repo: https://xxx/xxx.git</code>,<code>branch: gh-pages</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>搞完上述的配置之后，命令行输入每次更新必输入的三句命令：<ul>
-<li><code>hexo clean</code></li>
-<li><code>hexo g</code></li>
-<li><code>hexo d</code>（第2和第3可以合并为<code>hexo g -d</code>）</li>
-</ul>
-</li>
-<li>hexo连接是一个谜，所以有时候会报错，失败了也不用着急，全随缘，没准什么时候就d成功了。 </li>
-<li>一些其他命令<code>hexo new post xxx</code>，就会自动创建新文件，目录它会自动告诉你。</li>
-</ul>
-<h3 id="PLUS-theme"><a href="#PLUS-theme" class="headerlink" title="PLUS theme"></a>PLUS theme</h3><p>找到一个喜欢的主题xxx，下载解压到博客文件夹的<code>theme</code>文件夹里面，一般theme都会有使用手册，按照里面的要求进行修改就行。<br>然后再回到根目录下的<code>_config.yml</code>文件里修改<code>theme: xxx</code>。最后三句命令进行更新推送，等待page build好就可以看到了。<br><br><a href=https://hexo.io/themes/>Hexo theme</a><br><a href=https://hexo.fluid-dev.com/archives/>fluid theme</a></p>
+
+        <div class="page-current">
+    
+    <a class="page-num" href="/MIA/page/2/">
+        <i class="fa-solid fa-caret-left fa-fw"></i>
+    </a>
+    <a class="page-num" href="/MIA/">1</a>
+    <span class="page-omit">...</span>
+    
+    <span class="current">3</span>
+    
+    
+    
+    
+</div>
 
     </div>
     
-    
-    
-    
-    
-    
+    <div id="home-card">
+        <div id="card-style">
+    <div id="card-div">
+        <div class="avatar">
+            <img src="/MIA/images/bloodykitty.jpg" alt="avatar" />
+        </div>
+        <div class="name">LUEFLAM</div>
+        <div class="description">
+            <p>Description<br>I’M a Mess</p>
+
+        </div>
+        
+        
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://argvchs.github.io">Argvchs</a>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+
+    </div>
     
 </div>
 
@@ -267,12 +339,6 @@
         
     </div>
     <script src="/MIA/js/main.js"></script>
-    
-    
-
-
-
-
     
 </body>
 </html>
