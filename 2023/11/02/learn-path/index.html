@@ -169,7 +169,7 @@
             
             <span class="tag">
                 
-                <a href="/MIA/tags/LEARN/" style="color: #CD5C5C">LEARN</a>
+                <a href="/MIA/tags/LEARN/" style="color: #03a9f4">LEARN</a>
             </span>
             
         </span>
@@ -233,6 +233,7 @@
 </ol>
 </li>
 </ul>
+<hr>
 <blockquote>
 <p>client-side会带来额外的复杂性，在已学过的sever-side技能基础上，学会如何识别和利用一些可怕的client-side载体。</p>
 </blockquote>
@@ -262,6 +263,7 @@
 </ol>
 </li>
 </ul>
+<hr>
 <h2 id="1-3-advanced-topics"><a href="#1-3-advanced-topics" class="headerlink" title="1.3 advanced topics:"></a>1.3 advanced topics:</h2><ul>
 <li><ol>
 <li><strong>Insecure deserialization</strong>: 反序列化</li>
@@ -278,6 +280,7 @@
 <hr>
 <p><a href=https://portswigger.net/web-security/all-topics>点击查看所有漏洞列表</a></p>
 <hr>
+<hr>
 <h1 id="2-Basis"><a href="#2-Basis" class="headerlink" title="2.Basis"></a>2.Basis</h1><h2 id="2-1-Web-development"><a href="#2-1-Web-development" class="headerlink" title="2.1 Web development"></a>2.1 Web development</h2><blockquote>
 <p>You should be familiar with the fundamentals of web development, such as HTML, CSS, JavaScript, and how web applications work. You should also know how to use web frameworks, such as Django, Flask, Ruby on Rails, etc. This will help you understand how web applications are built and how they can be vulnerable to attacks.</p>
 </blockquote>
@@ -287,6 +290,7 @@
 <li>JavaScript</li>
 </ul>
 <p>这些均在<a href=https://www.w3school.com.cn/>W3school</a>可以学到，不过还要结合漏洞才能知道需要重点注意什么。</p>
+<hr>
 <h3 id="2-1-2-web-applications-work"><a href="#2-1-2-web-applications-work" class="headerlink" title="2.1.2 web applications work"></a>2.1.2 web applications work</h3><p>大概为下面5个步骤：</p>
 <ul>
 <li><ol>
@@ -313,34 +317,83 @@
 <p>一些参考：<br><a href=https://www.riverbed.com/faq/how-does-web-application-work/>How Does a Web Application Work? - Riverbed</a><br></p>
 <p><a href=https://www.geeksforgeeks.org/how-web-works-web-application-architecture-for-beginners/>How Web Works – Web Application Architecture for Beginners</a><br></p>
 <p><a href=https://www.altexsoft.com/blog/engineering/web-application-architecture-how-the-web-works/>Web Application Architecture: How the Web Works | AltexSoft</a></p>
+<hr>
 <h3 id="2-1-3-web-frameworks"><a href="#2-1-3-web-frameworks" class="headerlink" title="2.1.3 web frameworks"></a>2.1.3 web frameworks</h3><ul>
 <li>Flask</li>
 <li>Django</li>
 <li>Ruby on Rails</li>
 </ul>
+<hr>
 <h2 id="2-2-Networking"><a href="#2-2-Networking" class="headerlink" title="2.2 Networking"></a>2.2 Networking</h2><blockquote>
 <p>You should be familiar with the basics of networking, such as TCP&#x2F;IP, HTTP, DNS, SSL&#x2F;TLS, and how data is transmitted over the Internet. You should also know how to use networking tools, such as ping, traceroute, nmap, wireshark, etc. This will help you understand how web applications communicate and how they can be intercepted or manipulated by attackers.</p>
 </blockquote>
 <h3 id="2-2-1-basis-of-networking"><a href="#2-2-1-basis-of-networking" class="headerlink" title="2.2.1 basis of networking"></a>2.2.1 basis of networking</h3><ul>
 <li><a href=https://www.ibm.com/topics/networking>Network Types</a><ul>
-<li>LAN</li>
-<li>WAN</li>
-<li>MAN</li>
-<li>PAN</li>
+<li><strong>LAN</strong>():</li>
+<li><strong>WAN</strong>()</li>
+<li><strong>MAN</strong>()</li>
+<li><strong>PAN</strong>()：</li>
 </ul>
 </li>
-<li>Network Protocols<ul>
+</ul>
+<table>
+<thead>
+<tr>
+<th>network_name</th>
+<th></th>
+<th>example</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LAN</td>
+<td>Local Area Network</td>
+<td>局域网，同一房间或建筑物中的多台计算机的网络</td>
+<td>例如学校的计算机机房，其服务器之间连接常用以太网电缆进行，终端设备通过WIFI通信</td>
+</tr>
+<tr>
+<td>WAN</td>
+<td>Wide Area Network</td>
+<td>广域网，连接世界范围内的计算机的网络</td>
+<td></td>
+</tr>
+<tr>
+<td>PAN</td>
+<td>personal Area Network</td>
+<td>个人外围设备之间进行通信的网络，短距离通信</td>
+<td>低功耗，通信数据量小</td>
+</tr>
+<tr>
+<td>MAN</td>
+<td>Metropolitan Area Network</td>
+<td>城域网，简单理解为包含很多LAN的network</td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+<ul>
+<li><strong>Network Protocols</strong><ul>
 <li>TCP&#x2F;IP</li>
 <li>HTTP(S)</li>
-<li>FTP</li>
+<li>FTP<br>…</li>
 </ul>
 </li>
+</ul>
+<p><img src="/MIA/imgs/networking-osi_layer.png" alt="THE OSI model"><br>how the network protocols work<br><br>具体的可能要另开一篇写。所以这里只是简略说一下。</p>
+<hr>
+<ul>
 <li>IP Addressing</li>
-<li>DNS</li>
-<li>Firewalls</li>
+<li>DNS：是互联网的一项服务。它作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。</li>
+<li>Firewalls<ul>
+<li>硬件防火墙</li>
+<li>软件防火墙</li>
+</ul>
+</li>
 <li>数据如何在网络中传输</li>
 </ul>
+<hr>
 <p>一个参考：<a href=https://www.geeksforgeeks.org/tcp-ip-model/>TCP&#x2F;IP</a></p>
+<hr>
 <h3 id="2-2-2-networking-tools"><a href="#2-2-2-networking-tools" class="headerlink" title="2.2.2 networking tools"></a>2.2.2 networking tools</h3><ul>
 <li>ping</li>
 <li>traceroute</li>
@@ -348,9 +401,11 @@
 <li>wireshark</li>
 <li>DevTools（开发者工具）</li>
 </ul>
+<hr>
 <h2 id="2-3-Cryptography"><a href="#2-3-Cryptography" class="headerlink" title="2.3 Cryptography"></a>2.3 Cryptography</h2><blockquote>
 <p>You should be familiar with the basics of cryptography, such as encryption, decryption, hashing, digital signatures, and how they are used to protect data and ensure its integrity and authenticity. You should also know how to use cryptographic tools, such as openssl, pgp, bcrypt, etc. This will help you understand how web applications secure data and how they can be compromised by attackers.</p>
 </blockquote>
+<hr>
 <h3 id="2-3-1-basis-of-cryptography"><a href="#2-3-1-basis-of-cryptography" class="headerlink" title="2.3.1 basis of cryptography"></a>2.3.1 basis of cryptography</h3><ul>
 <li>de&#x2F;encryption</li>
 <li>hashing</li>
@@ -359,10 +414,11 @@
 <li>digital signatures</li>
 </ul>
 <h3 id="2-3-2-cryptographic-tools"><a href="#2-3-2-cryptographic-tools" class="headerlink" title="2.3.2 cryptographic tools"></a>2.3.2 cryptographic tools</h3><ul>
-<li>openssL</li>
+<li><a href=https://www.openssl.org/>openSSL</a></li>
 <li>pgp</li>
 <li>bcrypt</li>
 </ul>
+<hr>
 <h2 id="2-4-Programming"><a href="#2-4-Programming" class="headerlink" title="2.4 Programming"></a>2.4 Programming</h2><blockquote>
 <p>You should be familiar with the basics of programming, such as variables, data types, control structures, functions, and how to write and debug code in one or more languages. You should also know how to use programming tools, such as IDEs, compilers, interpreters, debuggers, etc. This will help you understand how web applications function and how they can be exploited by attackers.</p>
 </blockquote>
