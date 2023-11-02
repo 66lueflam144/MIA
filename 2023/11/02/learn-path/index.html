@@ -1,0 +1,416 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>learn-path | 66+144</title>
+    <meta name="author" content="LUEFLAM" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/MIA/images/bloodykitty.jpg" />
+    <link rel="preconnect" href="https://cdn.staticfile.org" />
+<script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://cdn.staticfile.org/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://cdn.staticfile.org/highlight.js/11.8.0/styles/github.min.css"
+/>
+<script src="/MIA/js/lib/highlight.js"></script>
+
+
+
+<script src="/MIA/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/MIA/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/MIA/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/MIA/">
+            <span>66+144</span>
+        </a>
+        
+        <a href="/MIA/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/MIA/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/MIA/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/MIA/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/MIA/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;66+144</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/MIA/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/MIA/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/MIA/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/MIA/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/MIA/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>learn-path</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/11/2
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/MIA/tags/LEARN/" style="color: #00bcd4">LEARN</a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>因格雷西含量有点多</p>
+<span id="more"></span>
+
+<h1 id="1-vulnerabilities-Topics"><a href="#1-vulnerabilities-Topics" class="headerlink" title="1.vulnerabilities Topics"></a>1.vulnerabilities Topics</h1><blockquote>
+<p>对于完全的初学者，我们建议从server-side开始。这些漏洞通常比较容易学习，因为只需要了解服务器上发生的事情。</p>
+</blockquote>
+<h2 id="1-1-server-side"><a href="#1-1-server-side" class="headerlink" title="1.1 server-side"></a>1.1 server-side</h2><ul>
+<li><ol>
+<li><strong>SQL injection</strong>: 一个经典的数据泄露漏洞（a classic vulnerability responsible for many high-profile data breaches）</li>
+</ol>
+</li>
+<li><ol start="2">
+<li><strong>Authentication</strong>: 身份验证机制学习与攻击（Learn about different authentication mechanisms and how they can be exploited）</li>
+</ol>
+</li>
+<li><ol start="3">
+<li><strong>Path traversal</strong>: 路径遍历漏洞</li>
+</ol>
+</li>
+<li><ol start="4">
+<li><strong>Command injection</strong>: 命令行注入攻击</li>
+</ol>
+</li>
+<li><ol start="5">
+<li><strong>Business logic vulnerabilities</strong>: 业务逻辑漏洞.</li>
+</ol>
+</li>
+<li><ol start="6">
+<li><strong>Information disclosure</strong>: 信息泄露</li>
+</ol>
+</li>
+<li><ol start="7">
+<li><strong>Access control</strong>: 访问机制与绕过</li>
+</ol>
+</li>
+<li><ol start="8">
+<li><strong>File upload vulnerabilities</strong>: 文件上传漏洞</li>
+</ol>
+</li>
+<li><ol start="9">
+<li><strong>Race conditions</strong>: 竞争条件</li>
+</ol>
+</li>
+<li><ol start="10">
+<li><strong>Server-side request forgery (SSRF)</strong>: SSRF</li>
+</ol>
+</li>
+<li><ol start="11">
+<li><strong>XXE injection</strong>: XXE注入</li>
+</ol>
+</li>
+<li><ol start="12">
+<li><strong>NoSQL injection</strong>: NoSQL注入攻击</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>client-side会带来额外的复杂性，在已学过的sever-side技能基础上，学会如何识别和利用一些可怕的client-side载体。</p>
+</blockquote>
+<h2 id="1-2-client-side"><a href="#1-2-client-side" class="headerlink" title="1.2 client-side"></a>1.2 client-side</h2><ul>
+<li><ol>
+<li><strong>Cross-site scripting (XSS)</strong>: XSS</li>
+</ol>
+</li>
+<li><ol start="2">
+<li><strong>Cross-site request forgery (CSRF)</strong>: CSRF</li>
+</ol>
+</li>
+<li><ol start="3">
+<li><strong>Cross-origin resource sharing (CORS)</strong>: CORS</li>
+</ol>
+</li>
+<li><ol start="4">
+<li><strong>Clickjacking</strong>: 点击劫持</li>
+</ol>
+</li>
+<li><ol start="5">
+<li><strong>DOM-based vulnerabilities</strong>: 基于DOM的漏洞</li>
+</ol>
+</li>
+<li><ol start="6">
+<li><strong>WebSockets</strong>: WebSockets漏洞</li>
+</ol>
+</li>
+</ul>
+<h2 id="1-3-advanced-topics"><a href="#1-3-advanced-topics" class="headerlink" title="1.3 advanced topics:"></a>1.3 advanced topics:</h2><ul>
+<li><ol>
+<li><strong>Insecure deserialization</strong>: 反序列化</li>
+</ol>
+</li>
+<li><p>2.<strong>GraphQL API vulnerabilities</strong></p>
+</li>
+<li><p>3.<strong>Server-side template</strong></p>
+</li>
+<li><p>4.<strong>Web cache possoning</strong></p>
+</li>
+</ul>
+<p>…and more</p>
+<hr>
+<p><a href=https://portswigger.net/web-security/all-topics>点击查看所有漏洞列表</a></p>
+<hr>
+<h1 id="2-Basis"><a href="#2-Basis" class="headerlink" title="2.Basis"></a>2.Basis</h1><h2 id="2-1-Web-development"><a href="#2-1-Web-development" class="headerlink" title="2.1 Web development"></a>2.1 Web development</h2><blockquote>
+<p>You should be familiar with the fundamentals of web development, such as HTML, CSS, JavaScript, and how web applications work. You should also know how to use web frameworks, such as Django, Flask, Ruby on Rails, etc. This will help you understand how web applications are built and how they can be vulnerable to attacks.</p>
+</blockquote>
+<h3 id="2-1-1-Fundamental-of-web-development"><a href="#2-1-1-Fundamental-of-web-development" class="headerlink" title="2.1.1 Fundamental of web development"></a>2.1.1 Fundamental of web development</h3><ul>
+<li>HTML</li>
+<li>CSS</li>
+<li>JavaScript</li>
+</ul>
+<p>这些均在<a href=https://www.w3school.com.cn/>W3school</a>可以学到，不过还要结合漏洞才能知道需要重点注意什么。</p>
+<h3 id="2-1-2-web-applications-work"><a href="#2-1-2-web-applications-work" class="headerlink" title="2.1.2 web applications work"></a>2.1.2 web applications work</h3><p>大概为下面5个步骤：</p>
+<ul>
+<li><ol>
+<li><strong>User Request</strong>（用户请求）: 用户通过打开web网页，触发发送一个请求给服务器。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li><strong>Web Server Processing</strong>（服务器加载）: 服务器接收到请求然后发送到相应的应用服务器，应用服务器再进行被请求的进程，比如向数据库查询值。</li>
+</ol>
+</li>
+<li><ol start="3">
+<li><strong>Web Application Server Processing</strong>（应用服务器加载）: 应用服务器处理请求和运行所有后端逻辑。查询数据库、计算、或者任何某个请求所必要的任务的执行。</li>
+</ol>
+</li>
+<li><ol start="4">
+<li><strong>Response Generation</strong>（构造响应）: 应用服务器完成上面的任务后，就会构造请求数据的结果。</li>
+</ol>
+</li>
+<li><ol start="5">
+<li><strong>Response Delivery</strong>（发回响应）: 应用服务器把结果发送回服务器，服务器又发回客户端。</li>
+</ol>
+</li>
+</ul>
+<p>一些参考：<br><a href=https://www.riverbed.com/faq/how-does-web-application-work/>How Does a Web Application Work? - Riverbed</a><br></p>
+<p><a href=https://www.geeksforgeeks.org/how-web-works-web-application-architecture-for-beginners/>How Web Works – Web Application Architecture for Beginners</a><br></p>
+<p><a href=https://www.altexsoft.com/blog/engineering/web-application-architecture-how-the-web-works/>Web Application Architecture: How the Web Works | AltexSoft</a></p>
+<h3 id="2-1-3-web-frameworks"><a href="#2-1-3-web-frameworks" class="headerlink" title="2.1.3 web frameworks"></a>2.1.3 web frameworks</h3><ul>
+<li>Flask</li>
+<li>Django</li>
+<li>Ruby on Rails</li>
+</ul>
+<h2 id="2-2-Networking"><a href="#2-2-Networking" class="headerlink" title="2.2 Networking"></a>2.2 Networking</h2><blockquote>
+<p>You should be familiar with the basics of networking, such as TCP&#x2F;IP, HTTP, DNS, SSL&#x2F;TLS, and how data is transmitted over the Internet. You should also know how to use networking tools, such as ping, traceroute, nmap, wireshark, etc. This will help you understand how web applications communicate and how they can be intercepted or manipulated by attackers.</p>
+</blockquote>
+<h3 id="2-2-1-basis-of-networking"><a href="#2-2-1-basis-of-networking" class="headerlink" title="2.2.1 basis of networking"></a>2.2.1 basis of networking</h3><ul>
+<li><a href=https://www.ibm.com/topics/networking>Network Types</a><ul>
+<li>LAN</li>
+<li>WAN</li>
+<li>MAN</li>
+<li>PAN</li>
+</ul>
+</li>
+<li>Network Protocols<ul>
+<li>TCP&#x2F;IP</li>
+<li>HTTP(S)</li>
+<li>FTP</li>
+</ul>
+</li>
+<li>IP Addressing</li>
+<li>DNS</li>
+<li>Firewalls</li>
+<li>数据如何在网络中传输</li>
+</ul>
+<p>一个参考：<a href=https://www.geeksforgeeks.org/tcp-ip-model/>TCP&#x2F;IP</a></p>
+<h3 id="2-2-2-networking-tools"><a href="#2-2-2-networking-tools" class="headerlink" title="2.2.2 networking tools"></a>2.2.2 networking tools</h3><ul>
+<li>ping</li>
+<li>traceroute</li>
+<li>nmap</li>
+<li>wireshark</li>
+<li>DevTools（开发者工具）</li>
+</ul>
+<h2 id="2-3-Cryptography"><a href="#2-3-Cryptography" class="headerlink" title="2.3 Cryptography"></a>2.3 Cryptography</h2><blockquote>
+<p>You should be familiar with the basics of cryptography, such as encryption, decryption, hashing, digital signatures, and how they are used to protect data and ensure its integrity and authenticity. You should also know how to use cryptographic tools, such as openssl, pgp, bcrypt, etc. This will help you understand how web applications secure data and how they can be compromised by attackers.</p>
+</blockquote>
+<h3 id="2-3-1-basis-of-cryptography"><a href="#2-3-1-basis-of-cryptography" class="headerlink" title="2.3.1 basis of cryptography"></a>2.3.1 basis of cryptography</h3><ul>
+<li>de&#x2F;encryption</li>
+<li>hashing</li>
+<li>hex</li>
+<li>base64</li>
+<li>digital signatures</li>
+</ul>
+<h3 id="2-3-2-cryptographic-tools"><a href="#2-3-2-cryptographic-tools" class="headerlink" title="2.3.2 cryptographic tools"></a>2.3.2 cryptographic tools</h3><ul>
+<li>openssL</li>
+<li>pgp</li>
+<li>bcrypt</li>
+</ul>
+<h2 id="2-4-Programming"><a href="#2-4-Programming" class="headerlink" title="2.4 Programming"></a>2.4 Programming</h2><blockquote>
+<p>You should be familiar with the basics of programming, such as variables, data types, control structures, functions, and how to write and debug code in one or more languages. You should also know how to use programming tools, such as IDEs, compilers, interpreters, debuggers, etc. This will help you understand how web applications function and how they can be exploited by attackers.</p>
+</blockquote>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2023 66+144
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;LUEFLAM
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/MIA/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

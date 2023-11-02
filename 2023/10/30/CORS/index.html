@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Buy Flag | 66+144</title>
+    <title>CORS | 66+144</title>
     <meta name="author" content="LUEFLAM" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -150,23 +150,14 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>Buy Flag</h1>
+        <h1>CORS</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2023/10/27
-        </span>
-        
-        <span class="category">
-            <a href="/MIA/categories/CTF-Easy/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                CTF_Easy
-            </a>
+            2023/10/30
         </span>
         
         
@@ -178,7 +169,7 @@
             
             <span class="tag">
                 
-                <a href="/MIA/tags/CTF/" style="color: #00bcd4">CTF</a>
+                <a href="/MIA/tags/LEARN/" style="color: #ffa2c4">LEARN</a>
             </span>
             
         </span>
@@ -186,63 +177,47 @@
     </div>
     
     <div class="content" v-pre>
-        <p>之前还是一个新手村门口人的时候打开过，那个时候的无助真的有点好笑。</p>
+        <h1 id="What-is-CORS"><a href="#What-is-CORS" class="headerlink" title="What is CORS"></a>What is CORS</h1><blockquote>
+<p>跨源资源共享 (CORS) 是一种浏览器机制，可以对位于给定域之外的资源进行受控访问。它扩展并增加了同源策略 ( SOP ) 的灵活性。</p>
+</blockquote>
 <span id="more"></span>
 
-<h1 id="CUIT-Student"><a href="#CUIT-Student" class="headerlink" title="CUIT Student"></a>CUIT Student</h1><p>一般这种什么都不外露的就先查看页面源代码，所以找到了：</p>
-<pre><code class="php">&lt;!--
-    ~~~post money and password~~~
-if (isset($_POST[&#39;password&#39;])) &#123;
-    $password = $_POST[&#39;password&#39;];
-    if (is_numeric($password)) &#123;
-        echo &quot;password can&#39;t be number&lt;/br&gt;&quot;;
-    &#125;elseif ($password == 404) &#123;
-        echo &quot;Password Right!&lt;/br&gt;&quot;;
-    &#125;
-&#125;
---&gt;
-</code></pre>
-<p>POST传参，目前还用不到。所以我们抓包：</p>
-<pre><code class="http">GET /pay.php HTTP/1.1
-...
-Accept-Language: ja,zh-CN;q=0.9,zh;q=0.8
-Cookie: user=0
-Connection: close
-</code></pre>
-<p>有一个<code>cookie: user=0</code>，发送repeater模块，试试修改为1。得到<code>you are Cuiter</code></p>
-<hr>
-<h1 id="psw-can’t-be-number"><a href="#psw-can’t-be-number" class="headerlink" title="psw can’t be number"></a>psw can’t be number</h1><p>最开始没有注意到这个<code>is_numeric()</code>，自信的写404，然后得到了不能是数字的回复。<br>当时我满脑子？？？？？？？？？<br>不能是404但是又必须是404？？？？？？？<br>小小的脑袋塞满了大大的问号。</p>
-<hr>
-<p>不过因为在做这个之前做了Easy MD5，知道了PHP的神秘宇宙规则——在PHP的宇宙里，<em>不能是404但是又必须是404</em>完全可以做到。<br>就是那个PHP弱类型比较。</p>
-<p>做一个简单的测试</p>
-<pre><code class="php">&lt;?php
-    $a=404;
-    $b=&#39;404abc&#39;;//进行修改
-    //是否相等,目标为true
-    $c=var_dump($a==$b);
-    //是否是数字，目标为false
-    $d=var_dump(is_numeric($b));
-    echo $c,$d;
-    
-?&gt;  
-</code></pre>
+<p>这种机制很有用，因为复杂的应用程序通常会在其客户端代码中引用第三方 API 和资源。<br>例如：</p>
+<ul>
+<li>应用程序可能使用浏览器从视频平台 API 提取视频，</li>
+<li>使用公共字体库中的字体，</li>
+<li>或显示来自国家天气数据库的天气数据。</li>
+</ul>
 <blockquote>
-<p>在 PHP 中，var_dump() 函数主要用于打印变量的相关信息，如类型、值和长度等。它并不直接用于进行布尔值判断。当 var_dump() 函数用于布尔值时，它会输出该布尔值的类型和值。</p>
+<p>CORS 允许客户端浏览器在传输任何数据之前向第三方服务器检查请求是否获得授权。</p>
 </blockquote>
-<p>所以构造payload：</p>
-<pre><code class="http">password=404abc&amp;money=100000000
-</code></pre>
-<p><font color=red>注意是用post的方式传参</font></p>
-<hr>
-<h1 id="Nember-lenth-is-too-long"><a href="#Nember-lenth-is-too-long" class="headerlink" title="Nember lenth is too long"></a>Nember lenth is too long</h1><blockquote>
-<p>当使用 POST 方法向 PHP 文件传递参数时，参数的值通常需要进行 URL 编码。这是为了确保参数值中不包含特殊字符或空格等无效字符，从而避免出现错误。<br>当尝试将 money 参数的值设置为 100000000 时，由于该值太长，可能会导致 URL 长度超过服务器限制，从而导致请求失败。</p>
+<p>如果网站的 CORS 策略配置和实施不当，它也可能带来跨域攻击。CORS 不能防止跨源攻击，例如跨站点请求伪造( CSRF )。<br>为了防止CSRF，所有浏览器都在实施同源策略</p>
+<h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><blockquote>
+<p>浏览器强制要求客户端只能向与客户端 URL 具有相同来源的资源发送请求。客户端 URL 的协议、端口和主机名都应与其请求的服务器相匹配。</p>
 </blockquote>
-<p><code>password=404abc&amp;money[]=1</code>——php对字符进行判断的函数存在漏洞，数组可以很好的绕过——who knows? I search for the answer from edge to google, but I still can’t find a answer.Be Like: what are these functions of PHP to judge characters? and no answer.FxxK’yall<br></p>
-<p>不过可能是<a href=https://blog.csdn.net/cherrie007/article/details/77473817><code>strcmp()</code>函数漏洞</a>利用</p>
-<hr>
-<p>另外一种是科学记数法：<code>money=100000000=1e9</code></p>
-<hr>
-
+<p>原URL：<code>http://xx.com/face2/dd.html</code></p>
+<ul>
+<li><p>来源相同（只有路径不同）：<code>http://xx.com/face2/click/dd.html</code></p>
+</li>
+<li><p>来源相同（只有路径不同）：<code>http://xx.com/face/aa.html</code></p>
+</li>
+<li><p>来源不同（协议不同）：<code>https://xx.com/face2/dd.html</code></p>
+</li>
+<li><p>来源不同（端口不同，默认为80）<code>http://xx.com:81/face2/dd.html</code></p>
+</li>
+</ul>
+<blockquote>
+<p>同源策略非常安全，但却不够灵活</p>
+</blockquote>
+<h2 id="CORS工作原理"><a href="#CORS工作原理" class="headerlink" title="CORS工作原理"></a>CORS工作原理</h2><p>浏览器向应用程序服务器发送 HTTP 请求，以 HTTP 响应的形式接收数据，然后显示数据。在浏览器术语中，当前浏览器 URL 被称为当前来源，而第三方 URL 则是跨源的。</p>
+<p>当您发出跨源请求时，请求-响应过程如下：</p>
+<ul>
+<li>浏览器在请求中添加来源标头，其中包含有关当前来源的协议、主机和端口的信息</li>
+<li>服务器检查当前来源标头，然后使用请求的数据和 <code>Access-Control-Allow-Origin</code>标头进行响应</li>
+<li>浏览器查看访问控制请求标头并与客户端应用程序共享返回的数据</li>
+<li>或者，如果服务器不想允许跨源访问，则会回复一则错误消息。</li>
+</ul>
+<h1 id="CORS-漏洞"><a href="#CORS-漏洞" class="headerlink" title="CORS 漏洞"></a>CORS 漏洞</h1><h2 id="服务器根据客户端指定的Origin标头生成ACAO标头"><a href="#服务器根据客户端指定的Origin标头生成ACAO标头" class="headerlink" title="服务器根据客户端指定的Origin标头生成ACAO标头"></a>服务器根据客户端指定的Origin标头生成ACAO标头</h2><h2 id="解析Origin标头出错"><a href="#解析Origin标头出错" class="headerlink" title="解析Origin标头出错"></a>解析Origin标头出错</h2><h2 id="列入白名单的空原始值"><a href="#列入白名单的空原始值" class="headerlink" title="列入白名单的空原始值"></a>列入白名单的空原始值</h2><h2 id="通过CORS信任关系利用XSS"><a href="#通过CORS信任关系利用XSS" class="headerlink" title="通过CORS信任关系利用XSS"></a>通过CORS信任关系利用XSS</h2><h2 id="CORS配置不当而破坏TLS"><a href="#CORS配置不当而破坏TLS" class="headerlink" title="CORS配置不当而破坏TLS"></a>CORS配置不当而破坏TLS</h2>
     </div>
     
     
