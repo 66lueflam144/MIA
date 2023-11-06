@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Powershell&amp;cmd&amp;more | 66+144</title>
+    <title>Network Protocols | 66+144</title>
     <meta name="author" content="LUEFLAM" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -150,14 +150,14 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>Powershell&amp;cmd&amp;more</h1>
+        <h1>Network Protocols</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2023/10/28
+            2023/11/6
         </span>
         
         
@@ -169,7 +169,7 @@
             
             <span class="tag">
                 
-                <a href="/MIA/tags/LEARN/" style="color: #7B68EE">LEARN</a>
+                <a href="/MIA/tags/LEARN/" style="color: #00a596">LEARN</a>
             </span>
             
         </span>
@@ -177,36 +177,80 @@
     </div>
     
     <div class="content" v-pre>
-        <h1 id="PowerShell"><a href="#PowerShell" class="headerlink" title="PowerShell"></a>PowerShell</h1><blockquote>
-<p>PowerShell 是一种跨平台的任务自动化解决方案，由命令行 shell、脚本语言和配置管理框架组成，所有输入和输出都是.NET对象。 PowerShell 在 Windows、Linux 和 macOS 上运行。</p>
+        <h1 id="What-is-Network-Protocol"><a href="#What-is-Network-Protocol" class="headerlink" title="What is Network Protocol"></a>What is Network Protocol</h1><blockquote>
+<p>a set of established rules that specify how to format, send and receive data so that computer network endpoints<span id="more"></span>（including computers, servers, routers and virtual machines）can communicate despite differences in their underlying infrastructures, designs or standards.</p>
 </blockquote>
-<span id="more"></span>
-
+<p>In networking, support for protocols can be built into the software, hardware or both.<br>Without network protocols, computers and other devices would not know how to engage with each other. </p>
+<h1 id="Types"><a href="#Types" class="headerlink" title="Types"></a>Types</h1><table>
+<thead>
+<tr>
+<th>type</th>
+<th>description</th>
+<th>implenet</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Network Communication prorocols</td>
+<td>这些协议正式描述了管理网络之间数据交换方式的格式和规则。处理身份验证和错误检测</td>
+<td>HTTP、UDP、TCP</td>
+</tr>
+<tr>
+<td>Network Management Protocols</td>
+<td>为了确保整个网络的稳定通信和最佳性能，网络管理协议帮助指定监视、管理和维护计算机网络所需的策略和流程。</td>
+<td>SNMP</td>
+</tr>
+<tr>
+<td>、ICMP</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Network Security Protocols</td>
+<td>保证传输过程中的数据的安全和保密，也还指定网络如何保护数据免受任何未经授权的检查或提取。</td>
+<td>SSL、HTTPS</td>
+</tr>
+</tbody></table>
+<h1 id="How-does-it-work"><a href="#How-does-it-work" class="headerlink" title="How does it work"></a>How does it work</h1><p>网络协议将较大的流程分解为跨网络各个级别的离散的、定义狭窄的功能和任务。<br></p>
+<h2 id="OSI-model"><a href="#OSI-model" class="headerlink" title="OSI model"></a>OSI model</h2><p><img src="/MIA/../imgs/networking-osi_layer.png"></p>
+<ul>
+<li>较低层处理数据传输</li>
+<li>较高层处理软件和应用</li>
+</ul>
+<p>Network protocols process these headers and footers as part of the data moving among devices in order to identify messages of their own kind.</p>
+<h2 id="TCP-IP-model"><a href="#TCP-IP-model" class="headerlink" title="TCP&#x2F;IP model"></a>TCP&#x2F;IP model</h2><blockquote>
+<p>A set of cooperating network protocols is called a protocol suite.</p>
+</blockquote>
+<p><strong>T</strong>ransmission <strong>C</strong>ontrol <strong>P</strong>rotocol&#x2F;<strong>I</strong>nternet <strong>P</strong>rotocol suite,主要用于客户端-服务端模型，包含了很多协议，几乎覆盖所有层。</p>
 <blockquote>
-<p>功能：</p>
+<p>Unlike the OSI model, the TCP&#x2F;IP suite consists of four layers, each with its protocols. </p>
 </blockquote>
 <ul>
-<li>通过函数、类、脚本、模块进行扩展</li>
-<li>便于输出的可扩展格式系统</li>
-<li>用于创建动态类的可扩展类型系统</li>
-<li>对常用数据格式的内置支持</li>
+<li>Application layer：SMTP、FTP</li>
+<li>Transport layer</li>
+<li>Internet layer: IP、ARP、ICMP</li>
+<li>Network access layer</li>
 </ul>
-<h2 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h2><blockquote>
-<p>shell的功能：</p>
-</blockquote>
+<hr>
 <ul>
-<li>命令行记录</li>
-<li>tab自动补全、命令预测</li>
-<li>支持命令和参数别名</li>
-<li>链接命令的管道</li>
-<li>控制台帮助系统</li>
+<li><p><strong>TCP</strong>：使用一组规则在信息包级别与其他节点进行交换</p>
+</li>
+<li><p><strong>User Datagram Protocol</strong>: 建立应用和网络间低延迟和损失容忍的连接。一个TCP替代通信协议</p>
+</li>
+<li><p><strong>IP</strong>：用一组规则发送和接收IP level的消息</p>
+</li>
 </ul>
-<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>owerShell 是新式命令 shell，其中包括其他常用 shell 的最佳功能。 与大多数仅接受并返回文本的 shell 不同，PowerShell 接受并返回 <code>.NET</code>对象。</p>
-<h2 id="PowerShell-Versions"><a href="#PowerShell-Versions" class="headerlink" title="PowerShell Versions"></a>PowerShell Versions</h2><pre><code class="txt">Windows PowerShell //PowerShell控制台
-Windows PowerShell ISE //集成脚本环境
-Windows PowerShell(x86)
-Windows PowerShell ISE(x86)
-</code></pre>
+<h2 id="Vulnerabilities"><a href="#Vulnerabilities" class="headerlink" title="Vulnerabilities"></a>Vulnerabilities</h2><blockquote>
+<p>Network protocols are not designed for security</p>
+</blockquote>
+<p>attack:</p>
+<ul>
+<li>cache poisoning</li>
+<li>advetisement of false routes</li>
+<li>distributes denial-of-service assaults: SYN flood attack</li>
+</ul>
+<hr>
+<hr>
+<p>参考：<br><a href=https://www.techtarget.com/searchnetworking/definition/protocol>Protocols</a></p>
 
     </div>
     
