@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>virus | 66+144</title>
+    <title>网络资产测绘 | 66+144</title>
     <meta name="author" content="LUEFLAM" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -150,21 +150,109 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>virus</h1>
+        <h1>网络资产测绘</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2023/11/4
+            2023/11/7
         </span>
         
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/MIA/tags/LEARN/" style="color: #ff7d73">LEARN</a>
+            </span>
+            
+        </span>
         
     </div>
     
     <div class="content" v-pre>
-        
+        <h1 id="What-is-it"><a href="#What-is-it" class="headerlink" title="What is it"></a>What is it</h1><blockquote>
+<p><strong>网络资产测绘</strong>，用一些技术方法，探测全球互联网空间上的节点分布情况和网络关系索引，构建全球互联网图谱的一种方法。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="资产"><a href="#资产" class="headerlink" title="资产"></a>资产</h2><blockquote>
+<p><strong>网络资产</strong>，指赛博空间中某机构所拥有的一切可能被潜在攻击者利用的设备、信息、应用等数字资产。具体包括但不限于硬件设备、云主机、操作系统、IP地址、端口、证书、域名、Web应用、业务应用、中间件、框架、机构公众号、小程序、App、API、源代码等。概括来说，只要是可操作的对象，不管是实体还是属性。都可以称之为“网络空间资产”。</p>
+</blockquote>
+<p>网络资产在协议实现、网络应用等方面存在差异，如开放的端口&#x2F;服务信息、banner信息、Web网页数据等，对这些差异进行特征提取可得到该资产的特征指纹，网络资产指纹库积累了大量网络资产指纹。资产指纹比对是将目标主机的特征指纹和指纹库进行匹配，从而实现资产属性识别。</p>
+<h3 id="指纹特征"><a href="#指纹特征" class="headerlink" title="指纹特征"></a>指纹特征</h3><blockquote>
+<p>机构中某个资产具有的一系列特征信息的集合构成了这个资产的指纹特征——外网IP地址、内网IP地址、端口号、证书、域名、操作系统、Web应用、中间件&#x2F;框架</p>
+</blockquote>
+<hr>
+<p>资产扫描和发现不等同于网络空间测绘，我们可以从字面上去做个简单拆解，可以把资产扫描和发现理解为“测”的一部分，那么我们还需要去“绘”,也就是说要去分析数据、解读数据,进而去找到网络空间与现实物理空间存在着多种映射关联，并描述出来。</p>
+<hr>
+<hr>
+<h1 id="测绘概念"><a href="#测绘概念" class="headerlink" title="测绘概念"></a>测绘概念</h1><ul>
+<li>行为测绘</li>
+<li>动态测绘</li>
+<li>交叉测绘</li>
+</ul>
+<h2 id="行为测绘"><a href="#行为测绘" class="headerlink" title="行为测绘"></a>行为测绘</h2><blockquote>
+<p>对不同的banner特征进行识别</p>
+</blockquote>
+<h2 id="动态测绘"><a href="#动态测绘" class="headerlink" title="动态测绘"></a>动态测绘</h2><blockquote>
+<p>周期性对某个资产进行扫描，动态掌握周期内新增资产的情况</p>
+</blockquote>
+<p>网络空间资产是随时间变化而不断变化的，在这个角度上来看资产扫描与发现很多时候只是某些单一时间点的任务，而资产测绘的探测扫描则是持续的，通过网络资产的动态变化，反映现实空间的变化。</p>
+<h2 id="交叉测绘"><a href="#交叉测绘" class="headerlink" title="交叉测绘"></a>交叉测绘</h2><blockquote>
+<p>IPv4与IPv6的交叉</p>
+</blockquote>
+<hr>
+<hr>
+<h1 id="网络资产识别"><a href="#网络资产识别" class="headerlink" title="网络资产识别"></a>网络资产识别</h1><ul>
+<li>设备组件识别</li>
+<li>应用组件识别</li>
+<li>业务类型推断</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>description</th>
+<th>more</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>设备组件识别</td>
+<td>获取资产的网站响应头部数据、网站文件类型、网站异常响应、服务端口、banner等数据，提取设备指纹，通过与网络设备组件指纹库进行指纹比对，识别目标主机的设备类型、设备厂商、设备品牌、设备型号等设备属性。</td>
+<td></td>
+</tr>
+<tr>
+<td>应用组件识别</td>
+<td>通过持续收集、解析目标网络的应用组件信息，如论坛程序、博客程序等，获取网站响应头部数据、HTML页面、特殊URL、开放的端口、banner等，生成应用指纹，通过比对网络应用组件指纹库来自动化识别目标主机的Web服务器软件、Web脚本语言、服务类型及相应版本型号等应用属性。</td>
+<td></td>
+</tr>
+<tr>
+<td>业务类型推断</td>
+<td>基于资产探测数据，深入融合DNS信息、漏洞库、IP地理信息库等资源，建立资产多层级关联模型，推断网络资产的业务类型，实现网络资产多维度画像。业务类型推断旨在识别重要行业的重要资产，是网络空间深入态势感知的核心环节。</td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+<hr>
+<h2 id="平台"><a href="#平台" class="headerlink" title="平台"></a>平台</h2><ul>
+<li><a href=https://fofa.info/>FOFA</a></li>
+<li><a href=https://www.zoomeye.org/>ZoomEye</a></li>
+</ul>
+<hr>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a herf=http://www.gjbmj.gov.cn/n1/2022/0422/c411145-32406257.html>gov description</a><br></p>
+<p><a href=https://paper.seebug.org/1810/#_2>seebug 网络空间测绘溯源技术剖析</a><br></p>
+<p><a href=https://zhuanlan.zhihu.com/p/515210481>CAM</a><br></p>
+<p><a href=https://sec.bsia.org.cn/4937/202303/58219.html>对话</a><br></p>
+<p><a href=https://blog.nsfocus.net/cyberspace/>cyberspace</a><br></p>
+<p>&lt;a href&#x3D;<a target="_blank" rel="noopener" href="https://www.anquanke.com/table/topic.html?id=1%3E%E4%B8%80%E4%BA%9Btalk">https://www.anquanke.com/table/topic.html?id=1&gt;一些talk</a></a></p>
+
     </div>
     
     
