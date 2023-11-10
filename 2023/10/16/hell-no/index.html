@@ -178,12 +178,12 @@
             
             <span class="tag">
                 
-                <a href="/MIA/tags/TOOLs/" style="color: #03a9f4">TOOLs</a>
+                <a href="/MIA/tags/TOOLs/" style="color: #00a596">TOOLs</a>
             </span>
             
             <span class="tag">
                 
-                <a href="/MIA/tags/LEARN/" style="color: #CD5C5C">LEARN</a>
+                <a href="/MIA/tags/LEARN/" style="color: #ff7d73">LEARN</a>
             </span>
             
         </span>
@@ -222,57 +222,7 @@ def hello(s)
 <h1 id="Tools-That-you-will-use"><a href="#Tools-That-you-will-use" class="headerlink" title="Tools That you will use"></a>Tools That you will use</h1><p><a href=https://try8.cn/tool/code/hex>HEX编&#x2F;解码</a><br><br><a href=https://www.toolhelper.cn/>toolhelper</a><br><br><a href=https://try8.cn/tool/code>在线平台工具</a></p>
 <span id="more"></span>
 
-<h1 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h1><h2 id="有用的函数"><a href="#有用的函数" class="headerlink" title="有用的函数"></a>有用的函数</h2><h3 id="1-sorted，进行排序"><a href="#1-sorted，进行排序" class="headerlink" title="1.sorted，进行排序"></a>1.sorted，进行排序</h3><pre><code class="python">def min(arr):
-    return sorted(arr)[0]
-
-def max(arr):
-    return sorted(arr)[-1]
-</code></pre>
-<p>这段代码非常简洁且有效。它使用了 Python 的 <code>sorted</code> 函数和列表索引来找到数组中的最小值和最大值。</p>
-<ul>
-<li><p><code>sorted(arr)[0]</code> 这段代码首先将数组排序，然后返回排序后的第一个元素，也就是最小值。</p>
-</li>
-<li><p><code>sorted(arr)[-1]</code> 这段代码同样首先将数组排序，然后返回排序后的最后一个元素，也就是最大值。</p>
-</li>
-</ul>
-<p>需要注意的是，虽然这段代码非常简洁，但它的时间复杂度为 O(n log n)，其中 n 是数组的长度。这是因为 <code>sorted</code> 函数的时间复杂度为 O(n log n)。如果数组非常大，那么这段代码可能会比使用线性扫描（时间复杂度为 O(n)）的方法慢。但是，对于小到中等大小的数组，这段代码的运行速度应该是可以接受的。</p>
-<p>作为比较还有一个：</p>
-<pre><code class="python">def minimum(arr):
-    return min(arr)
-
-def maximum(arr):
-    return max(arr)
-</code></pre>
-<p>它使用了 Python 的内置函数 <code>min</code> 和 <code>max</code> 来找到数组中的最小值和最大值。</p>
-<p><code>min(arr)</code> 这段代码返回数组中的最小值。</p>
-<p><code>max(arr)</code> 这段代码返回数组中的最大值。</p>
-<p>这两个函数的时间复杂度都是 O(n)，其中 n 是数组的长度，因为它们都需要遍历整个数组一次。这比使用 <code>sorted</code> 函数的方法（时间复杂度为 O(n log n)）要快。所以，对于任何大小的数组，这段代码都能以最快的速度找到最小值和最大值。</p>
-<h3 id="join"><a href="#join" class="headerlink" title="join()"></a>join()</h3><pre><code class="python">def count_sheep(n):
-    return &#39;&#39;.join([str(i) + &#39; sheep...&#39; for i in range(1, n + 1)])
-</code></pre>
-<p>这个函数使用了 Python 的列表推导式（list comprehension）和 <code>join</code> 函数。<code>[str(i) + &#39; sheep...&#39; for i in range(1, n + 1)]</code> 这段代码将会为从1到n的每个整数生成一个字符串，字符串的内容是这个整数后面跟着 “ sheep…”。然后，<code>join</code> 函数将这些字符串连接成一个大的字符串。</p>
-<p>如果我们调用 <code>count_sheep(3)</code>，那么返回的结果将会是 <code>&quot;1 sheep...2 sheep...3 sheep...&quot;</code>。</p>
-<p>一个对比</p>
-<pre><code class="python">def count_sheep(n):
-    sheep=&quot;&quot;
-    for i in range(1, n+1):
-        sheep+=str(i) + &quot; sheep...&quot;
-    return sheep
-</code></pre>
-<h3 id="大小写"><a href="#大小写" class="headerlink" title="大小写"></a>大小写</h3><p>小写<code>low()</code>，大写<code>upper()</code>，调用。</p>
-<h3 id=""><a href="#" class="headerlink" title="&#x2F;&#x2F;"></a>&#x2F;&#x2F;</h3><pre><code class="python">def calculate_century(year):
-    if year % 100 == 0:
-        century = year // 100
-    else:
-        century = year // 100 + 1
-    return century
-
-# 测试
-print(calculate_century(2000))  # 输出：20
-print(calculate_century(2001))  # 输出：21
-</code></pre>
-<p>在Python中，<code>//</code>操作符用于执行整数（向下取整）除法。当你使用<code>//</code>操作符，结果将是商的整数部分，忽略了余数。例如，<code>5 // 2</code>将返回<code>2</code>，而不是<code>2.5</code>。</p>
-<hr>
+<h1 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h1><hr>
 <h2 id="下载Module"><a href="#下载Module" class="headerlink" title="下载Module"></a>下载Module</h2><p>有时候使用py的时候会报错说xx module没有，上网随便找一个下载命令发现好不靠谱，所以仔细找了一下实用的。</p>
 <h3 id="PIP安装"><a href="#PIP安装" class="headerlink" title="PIP安装"></a>PIP安装</h3><ul>
 <li>1.先检测pip module是否存在</li>
