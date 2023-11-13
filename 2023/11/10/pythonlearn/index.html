@@ -177,7 +177,7 @@
     </div>
     
     <div class="content" v-pre>
-        <p>在code war上面学的，觉得有趣的就记录下来</p>
+        <p>在code war上面学的，觉得有趣的就记录下来<br>也是English有点多的……因为这个时候在为CET6准备中</p>
 <span id="more"></span>
 
 
@@ -232,6 +232,63 @@ print(calculate_century(2000))  # 输出：20
 print(calculate_century(2001))  # 输出：21
 </code></pre>
 <p>在Python中，<code>//</code>操作符用于执行整数（向下取整）除法。当你使用<code>//</code>操作符，结果将是商的整数部分，忽略了余数。例如，<code>5 // 2</code>将返回<code>2</code>，而不是<code>2.5</code>。</p>
+<h3 id="删除首字符和末字母"><a href="#删除首字符和末字母" class="headerlink" title="删除首字符和末字母"></a>删除首字符和末字母</h3><pre><code class="python">def delete_head_tail(s):
+    return s[1:-1]
+</code></pre>
+<p>完全震惊我。完全。一点关于为什么不进行length检查的原因：</p>
+<blockquote>
+<p>Python’s slicing operation is designed to handle out-of-bounds indices gracefully. When you slice a string using s[1:-1], Python will return an empty string if the string s has less than 2 characters. This is because the start index 1 and the end index -1 (which corresponds to the last character) are out of bounds. </p>
+</blockquote>
+<p>还有其他方法：</p>
+<pre><code class="python">def remove_char(s):
+    s = list(s)  # Convert the string to a list of characters
+    s.pop()  # Remove the last character from the list
+    s.pop(0)  # Remove the first character from the list
+    return &#39;&#39;.join(s)  # Convert the list back to a string
+</code></pre>
+<h3 id="hard-to-say"><a href="#hard-to-say" class="headerlink" title="hard to say"></a>hard to say</h3><p>这是我的代码：</p>
+<pre><code class="python">def com(arr):
+    cou = 0
+    sum = 0
+    if not arr:
+        return []
+    for i in arr:
+        if i &gt; 0:
+            cou +=1
+        if i &lt; 0:
+            sum +=i
+    ar = [cou,sum]
+    return ar
+</code></pre>
+<p>这是别人的代码：</p>
+<pre><code class="python"># code 1
+def count_positives_sum_negatives(arr):
+    return [len([x for x in arr if x &gt; 0])] + [sum(y for y in arr if y &lt; 0)] if arr else []
+
+#code 2
+def count_positives_sum_negatives(arr):
+    return [sum(n &gt; 0 for n in arr), sum(n for n in arr if n &lt; 0)] if arr else []
+</code></pre>
+<p><strong>Code 1:</strong></p>
+<pre><code class="python">def count_positives_sum_negatives(arr):
+    return [len([x for x in arr if x &gt; 0])] + [sum(y for y in arr if y &lt; 0)] if arr else []
+</code></pre>
+<p>This function takes a list <code>arr</code> as input and returns a new list with two elements: the count of positive numbers and the sum of negative numbers in <code>arr</code>. If <code>arr</code> is empty, it returns an empty list. Here’s how it works:</p>
+<ul>
+<li><code>[x for x in arr if x &gt; 0]</code> is a list comprehension that creates a new list with all the positive numbers in <code>arr</code>.</li>
+<li><code>len([x for x in arr if x &gt; 0])</code> counts the number of positive numbers in <code>arr</code>.</li>
+<li><code>[sum(y for y in arr if y &lt; 0)]</code> calculates the sum of all the negative numbers in <code>arr</code>.</li>
+<li><code>if arr else []</code> checks if <code>arr</code> is not empty. If <code>arr</code> is empty, it returns an empty list <code>[]</code>.</li>
+</ul>
+<p><strong>Code 2:</strong></p>
+<pre><code class="python">def count_positives_sum_negatives(arr):
+    return [sum(n &gt; 0 for n in arr), sum(n for n in arr if n &lt; 0)] if arr else []
+</code></pre>
+<p>This function does the same thing as the first one, but it uses a different approach to count the positive numbers:</p>
+<ul>
+<li><code>sum(n &gt; 0 for n in arr)</code> uses a generator expression <code>(n &gt; 0 for n in arr)</code> to create a sequence of boolean values (<code>True</code> for positive numbers and <code>False</code> for non-positive numbers). Since <code>True</code> is equivalent to <code>1</code> and <code>False</code> is equivalent to <code>0</code> in Python, <code>sum(n &gt; 0 for n in arr)</code> effectively counts the number of positive numbers in <code>arr</code>.</li>
+</ul>
+<p>另外需要记录的是，<code>! arr</code>不等于<code>not arr</code>，在python中<code>!</code>和<code>NULL</code>都不是杯特殊标记的，无效。</p>
 
     </div>
     
